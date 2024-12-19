@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Allocate Slokas - Nitya Stotra Parayanam</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <img src="images/logo.png" alt="Nitya Stotra Parayanam Logo" class="logo">
+        <h1>Nitya Stotra Parayanam</h1>
+    </header>
+    <main>
+        <section class="allocate-slokas">
+            <h2>Allocate Slokas</h2>
+            <form id="allocationForm">
+                <label for="batchNumber">Batch Number:</label>
+                <input type="text" id="batchNumber" name="batchNumber" required>
+                
+                <label for="date">Date:</label>
+                <input type="date" id="date" name="date" required>
+                
+                <label for="names">List of Names (comma-separated):</label>
+                <textarea id="names" name="names" rows="4" required></textarea>
+                
+                <button type="button" id="allocateButton">Allocate</button>
+            </form>
+            <div id="output" class="output"></div>
+            <button id="downloadButton" style="display:none;">Download CSV</button>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2023 Nitya Stotra Parayanam</p>
+    </footer>
+    <script src="allocate.js"></script>
+</body>
+</html>
