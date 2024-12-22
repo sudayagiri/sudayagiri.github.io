@@ -90,8 +90,29 @@ function allocateSlokas(batchNumber, date, names) {
         }
     }
 
-    // Continue allocation logic as needed...
-    console.log(destinationSheet.data);
+    // Generate CSV from the allocated data
+    generateCSV(destinationSheet.data);
+}
+
+function generateCSV(data) {
+    // Convert the data array to CSV format
+    const csvContent = data.map(row => row.join(",")).join("\n");
+
+    // Create a Blob from the CSV content
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+
+    // Create a link element to download the CSV
+    const link = document.createElement("a");
+    link.setAttribute("href", url);
+    link.setAttribute("download", "allocations.csv");
+    document.body.appendChild(link); // Required for Firefox
+
+    // Programmatically click the link to trigger the download
+    link.click();
+
+    // Clean up and remove the link
+    document.body.removeChild(link);
 }
 
 // Example usage
@@ -100,5 +121,4 @@ document.getElementById('allocateButton').addEventListener('click', function() {
     const date = document.getElementById('date').value;
     const names = document.getElementById('names').value.split(',').map(name => name.trim());
 
-    allocateSlokas(batchNumber, date, names);
-});
+    allocateSlokas(batchNumber,
