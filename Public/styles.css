@@ -1,84 +1,30 @@
-/* styles.css */
-
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f4f4f4;
+/* Remove the navbar's default rounded borders and increase the bottom margin */ 
+.navbar {
+  margin-bottom: 50px;
+  border-radius: 0;
 }
-
-header {
-    display: flex; /* Use flexbox to align items */
-    align-items: center; /* Center items vertically */
-    background: #35424a;
-    color: #ffffff;
-    padding: 10px 20px;
+/* Remove the jumbotron's default bottom margin */ 
+ .jumbotron {
+  margin-bottom: 0;
+  background-image: linear-gradient(to bottom, rgba(255,255,255,0.6) 0%,rgba(255,255,255,0.9) 100%), url("picture.jpg");
+  background-size: cover;
+  height: 100%;
+  font-family: Montserrat;
+  height: 200px;
 }
-
-.logo {
-    max-width: 50px; /* Adjust the size of the logo */
-    height: auto; /* Maintain aspect ratio */
-    margin-right: 10px; /* Space between logo and title */
-}
-
-nav {
-    margin-left: auto; /* Push the nav to the right */
-}
-
-.nav-menu {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-}
-
-.nav-menu > li {
-    position: relative; /* Position for dropdown */
-    margin-right: 20px; /* Space between menu items */
-}
-
-.nav-menu a {
-    color: #ffffff;
-    text-decoration: none;
-    padding: 10px;
-}
-
-.dropdown {
-    display: none; /* Hide dropdown by default */
-    position: absolute; /* Position it below the parent */
-    background-color: #35424a; /* Match header background */
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    z-index: 1; /* Ensure it appears above other content */
-}
-
-.nav-menu li:hover .dropdown {
-    display: block; /* Show dropdown on hover */
-}
-
-.dropdown li {
-    margin: 0; /* No margin for dropdown items */
-}
-
-.main-content {
-    display: flex; /* Use flexbox for main content */
-    align-items: flex-start; /* Align items at the start */
-    margin: 20px; /* Add margin around the section */
-}
-
-.main-image {
-    max-width: 200px; /* Adjust the size of the main image */
-    height: auto; /* Maintain aspect ratio */
-    margin-right: 20px; /* Space between image and text */
-}
-
+/* Add a gray background color and some padding to the footer */
 footer {
-    text-align: center;
-    padding: 10px 0;
-    background: #35424a;
-    color: #ffffff;
-    position: relative;
-    bottom: 0;
-    width: 100%;
+  background-color: #f2f2f2;
+  padding: 10px;
+}
+body {
+  font-family: Montserrat, "Trebuchet MS", Verdana, sans-serif;
+  padding: 5px;
+  background-size: cover;
+}
+nav {
+	background-color: #99CD4E;
+}
+.navbar-nav li a{
+    color: #343434;
 }
