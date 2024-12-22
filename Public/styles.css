@@ -1,30 +1,82 @@
-/* Remove the navbar's default rounded borders and increase the bottom margin */ 
-.navbar {
-  margin-bottom: 50px;
-  border-radius: 0;
-}
-/* Remove the jumbotron's default bottom margin */ 
- .jumbotron {
-  margin-bottom: 0;
-  background-image: linear-gradient(to bottom, rgba(255,255,255,0.6) 0%,rgba(255,255,255,0.9) 100%), url("picture.jpg");
-  background-size: cover;
-  height: 100%;
-  font-family: Montserrat;
-  height: 200px;
-}
-/* Add a gray background color and some padding to the footer */
-footer {
-  background-color: #f2f2f2;
-  padding: 10px;
-}
+/* styles.css */
+
 body {
-  font-family: Montserrat, "Trebuchet MS", Verdana, sans-serif;
-  padding: 5px;
-  background-size: cover;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
 }
+
+header {
+    display: flex; /* Use flexbox to align items */
+    align-items: center; /* Center items vertically */
+    background: #ffcc80; /* Light orange background */
+    color: #35424a; /* Dark text color */
+    padding: 10px 20px;
+}
+
+.logo {
+    max-width: 50px; /* Adjust the size of the logo */
+    height: auto; /* Maintain aspect ratio */
+    margin-right: 10px; /* Space between logo and title */
+}
+
 nav {
-	background-color: #99CD4E;
+    margin-left: auto; /* Push the nav to the right */
 }
-.navbar-nav li a{
-    color: #343434;
+
+.nav-menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
 }
+
+.nav-menu > li {
+    position: relative; /* Position for dropdown */
+    margin-right: 20px; /* Space between menu items */
+}
+
+.nav-menu a {
+    color: #4caf50; /* Green text color */
+    text-decoration: none;
+    padding: 10px 15px; /* Add padding for clickable area */
+    transition: background 0.3s; /* Smooth background transition */
+}
+
+.nav-menu a:hover {
+    background-color: #ffe0b2; /* Light orange background on hover */
+    border-radius: 5px; /* Rounded corners */
+}
+
+.dropdown {
+    display: none; /* Hide dropdown by default */
+    position: absolute; /* Position it below the parent */
+    background-color: #ffcc80; /* Match header background */
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    z-index: 1; /* Ensure it appears above other content */
+}
+
+.nav-menu li:hover .dropdown {
+    display: block; /* Show dropdown on hover */
+}
+
+.dropdown li {
+    margin: 0; /* No margin for dropdown items */
+}
+
+.dropdown a {
+    padding: 10px 15px; /* Add padding for dropdown items */
+    color: #4caf50; /* Green text color for dropdown */
+}
+
+.dropdown a:hover {
+    background-color: #ffe0b2; /* Light orange background on hover */
+}
+
+.main-content {
+    display: flex; /* Use flexbox for main content */
+    align-items: flex-start; /* Align items at the start */
+   
