@@ -11,32 +11,10 @@
         <img src="images/logo.png" alt="Nitya Stotra Parayanam Logo" class="logo">
         <h1>Nitya Stotra Parayanam</h1>
     </header>
-    <main>
-        <section class="allocate-slokas">
-            <h2>Allocate Slokas</h2>
+
             
 <div class="container">
-<div class="row">
-	<!--Names-->
-	<div class="col-sm-3">
-	
-	<div class="row"> 
-		<div class="col-sm-6">
-			<input type="text" class="form-control" id="batchnumber"  style="font-family: Courier" placeholder="Batch Number e.g. A64, Videsh41, Oz" required></input>
-		</div>
-		<div class="col-sm-6">
-			<input type="text" class="form-control" id="satsangdate"  style="font-family: Courier" placeholder="Satsang date e.g. 2-Sep-2021 /1 PM IST" required></input>
-		</div>
-	</div>
-	  <label for="names" class="form-label">Enter Names</label>
-	  <br>
-	  <small><i>*Enter <strong>VISVAS</strong> as first name to allocate one portion once. (optional)</i></small>
-	  
-	  <textarea class="form-control" id="names" rows="15" style="font-family: Courier; margin: 5px 0 0 0 ">persons</textarea>
-	  <div class="row"> 
-		  <button type="button" accesskey="c" class="btn btn-danger" style="margin: 10px 5px 5px 10px;" onclick = "clearNames()">Clear</button>
-		  <button type="button" class="btn btn-danger" style="margin: 10px 5px 5px 10px;" onclick = "tempSave()"><span class="glyphicon glyphicon-floppy-disk"></span> Save</button>
-	  </div>
+
 	</div>
 
 
@@ -55,12 +33,8 @@
 		  <button type="button" class="btn btn-success btn-md" style="margin: 10px 5px 0px 10px;" onclick = "copyToClipboard('allocation')"><span class="glyphicon glyphicon-copy"></span> Copy Allocations</button> 
 		  <button type="button" class="btn btn-success btn-md" style="margin: 10px 5px 0px 10px;" onclick = "downloadCSV()"><span class="glyphicon glyphicon-download-alt"></span> Download CSV/XL</button> 
 	  </div>
-	</div>
-	
-            <div id="output" class="output"></div>
-            <button id="downloadButton" style="display:none;">Download CSV</button>
-        </section>
-    </main>
+	  </div>
+
     <footer>
         <p>&copy; Nitya Stotra Parayanam</p>
     </footer>
