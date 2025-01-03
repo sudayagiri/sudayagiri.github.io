@@ -66,7 +66,7 @@ function allocate(strStyle) {
 	strCsv = strCsv + 'Starting Prayer: ,,,,' + strStartingPrayerPerson + '\n' + 'Pledge: ,,,,' + strPledgePerson + '\n\n';
 	//===================================================================================================
 	nStart = devoteeCounter;  nEnd = devoteeCounter + peopleForPoorvaangam; devoteeCounter = nEnd;
-	txtPoorvangam = assignShlokas(22, nStart, nEnd, curatedLines, 'Poorvangam');
+	txtPoorvangam = assignShlokas(10, nStart, nEnd, curatedLines, 'Poorvangam');
 	strCsv = strCsv + '\n'; 
 	
 	nStart = devoteeCounter;  nEnd = devoteeCounter + 1; devoteeCounter = nEnd;
