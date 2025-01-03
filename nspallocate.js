@@ -47,19 +47,19 @@ function allocate(strStyle) {
 	//Start Processing
 	var devoteeCounter = 0;
 	
-	var total = 22 + 108 + 33;
+	var total = 10 + 154 + 15;
 	var totalDevotees = (curatedLines.length - 1 - peopleForDhyanam);
 	var perpersonApprox = Math.round(total / totalDevotees);
 	console.log(perpersonApprox + ' per person approx.');
 	
-	var peopleForPoorvaangam = Math.ceil(22 / perpersonApprox);
-	var peopleForPhalashruti = Math.ceil(33 / perpersonApprox);
+	var peopleForPoorvaangam = Math.ceil(10 / perpersonApprox);
+	var peopleForPhalashruti = Math.ceil(15 / perpersonApprox);
 	peopleForShlokas = totalDevotees - (peopleForPhalashruti + peopleForPoorvaangam)
 	
 	var strStartingPrayerPerson = getRandomName(curatedLines);
 	var strPledgePerson = getRandomName(curatedLines);
 	
-	txtOmNamo = '*Om Namo Narayana* \n';
+	txtOmNamo = '*Shree Matre Namaha* \n';
 	txtDashes = '--------------------------------------------\n';
 	txtBatchDate = 'Batch Number: ' + window.localStorage.getItem("nsp-batchnumber") + '  [Satsang Date: ' + window.localStorage.getItem("nsp-satsangdate") + ']\n';
 	txtPledgePrayer = 'Starting Prayer: ' + strStartingPrayerPerson + '\n' + 'Pledge: ' + strPledgePerson + '\n\n';
@@ -78,11 +78,11 @@ function allocate(strStyle) {
 	strCsv = strCsv + '\n';
 	
 	nStart = devoteeCounter;  nEnd = devoteeCounter + peopleForShlokas; devoteeCounter = nEnd;
-	txtShlokam = assignShlokas(108, nStart, nEnd, curatedLines, 'Shlokam');
+	txtShlokam = assignShlokas(154, nStart, nEnd, curatedLines, 'Shlokam');
 	strCsv = strCsv + '\n';
 	
 	nStart = devoteeCounter;  nEnd = devoteeCounter + peopleForPhalashruti; devoteeCounter = nEnd;
-	txtPhalashruti = assignShlokas(33, nStart, nEnd, curatedLines, 'Phalashruti');
+	txtPhalashruti = assignShlokas(15, nStart, nEnd, curatedLines, 'Phalashruti');
 	strCsv = strCsv + '\n';
 	
 	//===================================================================================================
@@ -98,7 +98,7 @@ function allocate(strStyle) {
 		console.log(curatedLines.length);
 		nEnd = devoteeCounter + (curatedLines.length - 1);
 		console.log('me calling assign' + nStart + '--' + nEnd);
-		txtShlokam = assignShlokas(108, nStart, nEnd, curatedLines, 'Shlokam');
+		txtShlokam = assignShlokas(154, nStart, nEnd, curatedLines, 'Shlokam');
 		objallocation.value = txtOmNamo + txtDashes + txtBatchDate + txtDashes + txtShlokam + '\n';
 	}
 }
@@ -136,10 +136,10 @@ function assignShlokas(nShlokas, nStart, nEnd, curatedLines, shlokamName) {
 }
 
 function assignDhyaanam(peopleForDhyanam, nStart, curatedLines) {
-	makeText = fillDahses25("Dhyaanam: 1-3") + curatedLines[nStart] + "\n";
-	strCsv = strCsv + 'Dhyaanam' + ',1,3,,' + curatedLines[nStart] + "\n";
+	makeText = fillDahses25("Dhyaanam") + curatedLines[nStart] + "\n";
+	strCsv = strCsv + 'Dhyaanam'  + curatedLines[nStart] + "\n";
 	
-	if(peopleForDhyanam == 2) {
+/*	if(peopleForDhyanam == 2) {
 		makeText = makeText + fillDahses25("Dhyaanam: 4-8") + curatedLines[nStart+1] + "\n";
 		strCsv = strCsv + 'Dhyaanam' + ',4,8,,' + curatedLines[nStart+1] + "\n";
 	} else {
@@ -148,7 +148,7 @@ function assignDhyaanam(peopleForDhyanam, nStart, curatedLines) {
 		
 		makeText = makeText + fillDahses25("Dhyaanam: 6-8") + curatedLines[nStart+2] + "\n";
 		strCsv = strCsv + 'Dhyaanam' + ',6,8,,' + curatedLines[nStart+2] + "\n";
-	}
+	}*/
 	return makeText;
 }
 
@@ -161,7 +161,7 @@ function loadPeople() {
 		objNames.value = window.localStorage.getItem("nsp-names");
 	else {
 		text = '';
-		for (let i = 1; i <= 22; i++) {
+		for (let i = 1; i <= 10; i++) {
 			text += i + 'person' + '\n'
 		}
 		objNames.value =  text
