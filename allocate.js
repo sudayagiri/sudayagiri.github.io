@@ -27,16 +27,17 @@ let spreadsheet = {
 };
 
 function allocateSlokas(batchNumber, date, names) {
-    const sourceSheet = spreadsheet.getSheetByName("Sheet1");
+    /*const sourceSheet = spreadsheet.getSheetByName("Sheet1");
 
     // Check if the source sheet exists
     if (!sourceSheet) {
         console.log("Source sheet 'Sheet1' not found.");
         return;
-    }
+    }*/
 
     // Get the range of names
-    const namesArray = sourceSheet.data.map(row => row[0]).filter(name => name); // Flatten and filter out empty names
+ //   const namesArray = sourceSheet.data.map(row => row[0]).filter(name => name); // Flatten and filter out empty names
+      const namesArray = names;
 
     // Create or clear the destination sheet
     const destinationSheetName = "AllocateSloka";
@@ -121,4 +122,4 @@ document.getElementById('allocateButton').addEventListener('click', function() {
     const date = document.getElementById('date').value;
     const names = document.getElementById('names').value.split(',').map(name => name.trim());
 
-    allocateSlokas(batchNumber,
+    allocateSlokas(batchNumber,date, names)
