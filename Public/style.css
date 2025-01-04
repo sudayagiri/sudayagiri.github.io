@@ -1,0 +1,30 @@
+/* Remove the navbar's default rounded borders and increase the bottom margin */ 
+.navbar {
+  margin-bottom: 50px;
+  border-radius: 0;
+}
+/* Remove the jumbotron's default bottom margin */ 
+ .jumbotron {
+  margin-bottom: 0;
+  background-image: linear-gradient(to bottom, rgba(255,255,255,0.6) 0%,rgba(255,255,255,0.9) 100%), url("Venkateswara.jpg");
+  background-size: cover;
+  height: 100%;
+  font-family: Montserrat;
+  height: 200px;
+}
+/* Add a gray background color and some padding to the footer */
+footer {
+  background-color: #f2f2f2;
+  padding: 10px;
+}
+body {
+  font-family: Montserrat, "Trebuchet MS", Verdana, sans-serif;
+  padding: 5px;
+  background-size: cover;
+}
+nav {
+	background-color: #99CD4E;
+}
+.navbar-nav li a{
+    color: #343434;
+}
