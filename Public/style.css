@@ -13,17 +13,6 @@
   height: 100px;
 }
 
-.jumbotron .logo {
-
-  margin-right: 5px; /* Add spacing between icon and text */
-  display: inline;
-  margin-left: 15px;
-}
-.jumbotron .text-center {
-
-  margin-right: 5px; /* Add spacing between icon and text */
-
-}
 .fa-facebook {
   background: #3B5998;
   color: white;

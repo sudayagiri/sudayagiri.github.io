@@ -10,13 +10,41 @@
   background-size: cover;
   height: 100%;
   font-family: Montserrat;
-  height: 200px;
+  height: 100px;
+}
+.jumbotron .logo-text-center {
+  display: inline;
+  margin-right: 10px;
 }
 /* Add a gray background color and some padding to the footer 
 footer {
   background-color: #f2f2f2;
   padding: 10px;
 }*/
+
+.fa {
+  padding: 20px;
+  font-size: 30px;
+  width: 50px;
+  text-align: center;
+  text-decoration: none;
+  margin: 5px 2px;
+}
+.fa-facebook {
+  background: #3B5998;
+  color: white;
+}
+
+.fa-youtube {
+  background: #bb0000;
+  color: white;
+}
+
+.fa-instagram {
+  background: #125688;
+  color: white;
+}
+
 #footer {
    position:absolute;
    bottom:0;
