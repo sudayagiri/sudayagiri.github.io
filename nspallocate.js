@@ -40,7 +40,7 @@ function allocate(strStyle) {
 		curatedLines = makeItTwenty(curatedLines);
 		peopleForDhyanam = 2;
 	} else peopleForDhyanam = 3;
-	if(isRemovednsp) { curatedLines = addnsp(curatedLines); }
+	//if(isRemovednsp) { curatedLines = addnsp(curatedLines); }
 	
 	//==========================================================================================
 	
@@ -57,13 +57,13 @@ function allocate(strStyle) {
 	peopleForShlokas = totalDevotees - (peopleForPhalashruti + peopleForPoorvaangam)
 	
 	var strStartingPrayerPerson = getRandomName(curatedLines);
-	var strPledgePerson = getRandomName(curatedLines);
+	//var strPledgePerson = getRandomName(curatedLines);
 	
 	txtOmNamo = '*Shree Matre Namaha* \n';
 	txtDashes = '--------------------------------------------\n';
 	txtBatchDate = 'Batch Number: ' + window.localStorage.getItem("nsp-batchnumber") + '  [Satsang Date: ' + window.localStorage.getItem("nsp-satsangdate") + ']\n';
 	txtPledgePrayer = 'Starting Prayer: ' + strStartingPrayerPerson + '\n' + 'Pledge: ' + strPledgePerson + '\n\n';
-	strCsv = strCsv + 'Starting Prayer: ,,,,' + strStartingPrayerPerson + '\n' + 'Pledge: ,,,,' + strPledgePerson + '\n\n';
+	strCsv = strCsv + 'Starting Prayer: ,,,,' + strStartingPrayerPerson + '\n\n';
 	//===================================================================================================
 	nStart = devoteeCounter;  nEnd = devoteeCounter + peopleForPoorvaangam; devoteeCounter = nEnd;
 	txtPoorvangam = assignShlokas(10, nStart, nEnd, curatedLines, 'Poorvangam');
@@ -91,7 +91,7 @@ function allocate(strStyle) {
 	strCsv = strCsv + 'Ending Prayer: ,,,,' + strEndingPrayerPerson + '\n';
 	
 	if(strStyle != 'shloka') {
-		objallocation.value = txtOmNamo + txtDashes + txtBatchDate + txtDashes + txtPledgePrayer + txtPoorvangam + '\n' + txtNyasaa + '\n' + txtDhyaaanam + '\n' + txtShlokam + '\n' + txtPhalashruti + '\n' + txtEndingPrayer;
+		objallocation.value = txtOmNamo + txtDashes + txtBatchDate + txtDashes +  txtPoorvangam + '\n' + txtNyasaa + '\n' + txtDhyaaanam + '\n' + txtShlokam + '\n' + txtPhalashruti + '\n' + txtEndingPrayer;
 	} else {
 		devoteeCounter = 0;
 		nStart = devoteeCounter;
@@ -250,7 +250,7 @@ function operateNames(strDesign) {
 	}
 	shuffle(curatedLines);
 	var text = '';
-	for (let i = 0; i < curatedLines.length; i++) { text += curatedLines[i] + '\n'; }
+	for (let i = 0; i < curatedLines.length; i++) { text += curatedLines[i] + 'wo\n'; }
 	objRandomnames.value = text;
 }
 
