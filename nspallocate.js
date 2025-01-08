@@ -40,7 +40,7 @@ function allocate(strStyle) {
 		curatedLines = makeItTwenty(curatedLines);
 		peopleForDhyanam = 2;
 	} else peopleForDhyanam = 3;
-	//if(isRemovednsp) { curatedLines = addnsp(curatedLines); }
+	if(isRemovednsp) { curatedLines = addnsp(curatedLines); }
 	
 	//==========================================================================================
 	
