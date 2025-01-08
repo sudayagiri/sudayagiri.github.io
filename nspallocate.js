@@ -62,7 +62,7 @@ function allocate(strStyle) {
 	txtOmNamo = '*Shree Matre Namaha* \n';
 	txtDashes = '--------------------------------------------\n';
 	txtBatchDate = 'Batch Number: ' + window.localStorage.getItem("nsp-batchnumber") + '  [Satsang Date: ' + window.localStorage.getItem("nsp-satsangdate") + ']\n';
-	txtPledgePrayer = 'Starting Prayer: ' + strStartingPrayerPerson + '\n' + 'Pledge: ' + strPledgePerson + '\n\n';
+	txtPledgePrayer = 'Starting Prayer: ' + strStartingPrayerPerson + '\n\n';
 	strCsv = strCsv + 'Starting Prayer: ,,,,' + strStartingPrayerPerson + '\n\n';
 	//===================================================================================================
 	nStart = devoteeCounter;  nEnd = devoteeCounter + peopleForPoorvaangam; devoteeCounter = nEnd;
