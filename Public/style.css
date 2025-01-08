@@ -12,6 +12,21 @@
   font-family: Montserrat;
   height: 200px;
 }
+.fa-facebook {
+  background: #3B5998;
+  color: white;
+}
+
+.fa-youtube {
+  background: #bb0000;
+  color: white;
+}
+
+.fa-instagram {
+  background: #125688;
+  color: white;
+}
+
 /* Add a gray background color and some padding to the footer */
 footer {
   background-color: #f2f2f2;
