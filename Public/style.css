@@ -6,11 +6,23 @@
 /* Remove the jumbotron's default bottom margin */ 
  .jumbotron {
   margin-bottom: 0;
-  background-image: linear-gradient(to bottom, rgba(255,255,255,0.6) 0%,rgba(255,255,255,0.9) 100%), url("Venkateswara.jpg");
+  background-image: linear-gradient(to bottom, rgba(255,255,255,0.6) 0%,rgba(255,255,255,0.9) 100%);
   background-size: cover;
   height: 100%;
   font-family: Montserrat;
   height: 200px;
+}
+}
+.jumbotron .logo {
+
+  margin-right: 5px; /* Add spacing between icon and text */
+  display: inline;
+  margin-left: 15px;
+}
+.jumbotron .text-center {
+
+  margin-right: 5px; /* Add spacing between icon and text */
+
 }
 .fa-facebook {
   background: #3B5998;
