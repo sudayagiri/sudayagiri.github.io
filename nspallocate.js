@@ -1,16 +1,19 @@
 var strCsv = '';
 var curatedLinesRolled  = [];
+var purvanghamSlokas = 10;
+var mahaMantras = 154;
+var phalaShrutiSlokas = 15;
 
 function allocate(strStyle) {
 	//Save all values
 	tempSave();
 	
-	strCsv = 'Batch Number,' + window.localStorage.getItem("nsp-batchnumber") + ',,Date,'+ window.localStorage.getItem("nsp-satsangdate") + '\n\n';
+	strCsv = 'Batch Number,' + window.localStorage.getItem("vsn-batchnumber") + ',,Date,'+ window.localStorage.getItem("vsn-satsangdate") + '\n\n';
 	strCsv = strCsv + 'Shlokam,Start,End,Count,Devotee Name,Backup Chanter' + '\n\n';
 	var txtNames = document.getElementById('names').value;
 	var objallocation = document.getElementById('allocation'); 
 	var text = '';
-	var isRemovednsp = false;
+	var isRemovedNSP = false;
 	
 	//Names - remove spaces and new lines
 	var splittedLines = txtNames.split('\n');
@@ -24,9 +27,9 @@ function allocate(strStyle) {
 		alert('There are no people to allocate!');
 		return;
 	}
-	if (curatedLines[0] == 'nsp') { 
-		curatedLines = removensp(curatedLines);
-		isRemovednsp = true;
+	if (curatedLines[0].toUpperCase() == 'NSP') { 
+		curatedLines = removeNSP(curatedLines);
+		isRemovedNSP = true;
 	}
 	
 	//Randomize / Making big / Rolling
@@ -40,33 +43,34 @@ function allocate(strStyle) {
 		curatedLines = makeItTwenty(curatedLines);
 		peopleForDhyanam = 2;
 	} else peopleForDhyanam = 3;
-	if(isRemovednsp) { curatedLines = addnsp(curatedLines); }
+	if(isRemovedNSP) { curatedLines = addNSP(curatedLines); }
 	
 	//==========================================================================================
 	
 	//Start Processing
 	var devoteeCounter = 0;
 	
-	var total = 10 + 154 + 15;
+	var total = purvanghamSlokas + mahaMantras + phalaShrutiSlokas;
 	var totalDevotees = (curatedLines.length - 1 - peopleForDhyanam);
 	var perpersonApprox = Math.round(total / totalDevotees);
 	console.log(perpersonApprox + ' per person approx.');
 	
-	var peopleForPoorvaangam = Math.ceil(10 / perpersonApprox);
-	var peopleForPhalashruti = Math.ceil(15 / perpersonApprox);
+	var peopleForPoorvaangam = Math.ceil(purvanghamSlokas / perpersonApprox);
+	var peopleForPhalashruti = Math.ceil(phalaShrutiSlokas / perpersonApprox);
 	peopleForShlokas = totalDevotees - (peopleForPhalashruti + peopleForPoorvaangam)
 	
 	var strStartingPrayerPerson = getRandomName(curatedLines);
 	//var strPledgePerson = getRandomName(curatedLines);
 	
-	txtOmNamo = '*Shree Matre Namaha* \n';
+	txtOmNamo = '*Om Namo Narayana* \n';
 	txtDashes = '--------------------------------------------\n';
-	txtBatchDate = 'Batch Number: ' + window.localStorage.getItem("nsp-batchnumber") + '  [Satsang Date: ' + window.localStorage.getItem("nsp-satsangdate") + ']\n';
-	txtPledgePrayer = 'Starting Prayer: ' + strStartingPrayerPerson + '\n\n';
-	strCsv = strCsv + 'Starting Prayer: ,,,,' + strStartingPrayerPerson + '\n\n';
+	txtBatchDate = 'Batch Number: ' + window.localStorage.getItem("vsn-batchnumber") + '  [Satsang Date: ' + window.localStorage.getItem("vsn-satsangdate") + ']\n';
+	//txtPledgePrayer = 'Starting Prayer: ' + strStartingPrayerPerson + '\n' + 'Pledge: ' + strPledgePerson + '\n\n';
+	//strCsv = strCsv + 'Starting Prayer: ,,,,' + strStartingPrayerPerson + '\n' + 'Pledge: ,,,,' + strPledgePerson + '\n\n';
+	strCsv = strCsv + 'Starting Prayer: ,,,,' + strStartingPrayerPerson + '\n\n'; //new line by NSP
 	//===================================================================================================
 	nStart = devoteeCounter;  nEnd = devoteeCounter + peopleForPoorvaangam; devoteeCounter = nEnd;
-	txtPoorvangam = assignShlokas(10, nStart, nEnd, curatedLines, 'Poorvangam');
+	txtPoorvangam = assignShlokas(purvanghamSlokas, nStart, nEnd, curatedLines, 'Purvangam');
 	strCsv = strCsv + '\n'; 
 	
 	nStart = devoteeCounter;  nEnd = devoteeCounter + 1; devoteeCounter = nEnd;
@@ -78,11 +82,11 @@ function allocate(strStyle) {
 	strCsv = strCsv + '\n';
 	
 	nStart = devoteeCounter;  nEnd = devoteeCounter + peopleForShlokas; devoteeCounter = nEnd;
-	txtShlokam = assignShlokas(154, nStart, nEnd, curatedLines, 'Shlokam');
+	txtShlokam = assignShlokas(mahaMantras, nStart, nEnd, curatedLines, 'Shlokam');
 	strCsv = strCsv + '\n';
 	
 	nStart = devoteeCounter;  nEnd = devoteeCounter + peopleForPhalashruti; devoteeCounter = nEnd;
-	txtPhalashruti = assignShlokas(15, nStart, nEnd, curatedLines, 'Phalashruti');
+	txtPhalashruti = assignShlokas(phalaShrutiSlokas, nStart, nEnd, curatedLines, 'Phalashruti');
 	strCsv = strCsv + '\n';
 	
 	//===================================================================================================
@@ -91,6 +95,7 @@ function allocate(strStyle) {
 	strCsv = strCsv + 'Ending Prayer: ,,,,' + strEndingPrayerPerson + '\n';
 	
 	if(strStyle != 'shloka') {
+	//	objallocation.value = txtOmNamo + txtDashes + txtBatchDate + txtDashes + txtPledgePrayer + txtPoorvangam + '\n' + txtNyasaa + '\n' + txtDhyaaanam + '\n' + txtShlokam + '\n' + txtPhalashruti + '\n' + txtEndingPrayer;
 		objallocation.value = txtOmNamo + txtDashes + txtBatchDate + txtDashes +  txtPoorvangam + '\n' + txtNyasaa + '\n' + txtDhyaaanam + '\n' + txtShlokam + '\n' + txtPhalashruti + '\n' + txtEndingPrayer;
 	} else {
 		devoteeCounter = 0;
@@ -98,7 +103,7 @@ function allocate(strStyle) {
 		console.log(curatedLines.length);
 		nEnd = devoteeCounter + (curatedLines.length - 1);
 		console.log('me calling assign' + nStart + '--' + nEnd);
-		txtShlokam = assignShlokas(154, nStart, nEnd, curatedLines, 'Shlokam');
+		txtShlokam = assignShlokas(mahaMantras, nStart, nEnd, curatedLines, 'Shlokam');
 		objallocation.value = txtOmNamo + txtDashes + txtBatchDate + txtDashes + txtShlokam + '\n';
 	}
 }
@@ -136,10 +141,10 @@ function assignShlokas(nShlokas, nStart, nEnd, curatedLines, shlokamName) {
 }
 
 function assignDhyaanam(peopleForDhyanam, nStart, curatedLines) {
-	makeText = fillDahses25("Dhyaanam") + curatedLines[nStart] + "\n";
-	strCsv = strCsv + 'Dhyaanam'  + curatedLines[nStart] + "\n";
+	makeText = fillDahses25("Dhyaanam: 1-3") + curatedLines[nStart] + "\n";
+	strCsv = strCsv + 'Dhyaanam' + ',1,3,,' + curatedLines[nStart] + "\n";
 	
-/*	if(peopleForDhyanam == 2) {
+	if(peopleForDhyanam == 2) {
 		makeText = makeText + fillDahses25("Dhyaanam: 4-8") + curatedLines[nStart+1] + "\n";
 		strCsv = strCsv + 'Dhyaanam' + ',4,8,,' + curatedLines[nStart+1] + "\n";
 	} else {
@@ -148,20 +153,20 @@ function assignDhyaanam(peopleForDhyanam, nStart, curatedLines) {
 		
 		makeText = makeText + fillDahses25("Dhyaanam: 6-8") + curatedLines[nStart+2] + "\n";
 		strCsv = strCsv + 'Dhyaanam' + ',6,8,,' + curatedLines[nStart+2] + "\n";
-	}*/
+	}
 	return makeText;
 }
 
 function loadPeople() {
-	if(window.localStorage.getItem("nsp-batchnumber") != '')  document.getElementById('batchnumber').value = window.localStorage.getItem("nsp-batchnumber");
-	if(window.localStorage.getItem("nsp-satsangdate") != '')  document.getElementById('satsangdate').value = window.localStorage.getItem("nsp-satsangdate");
+	if(window.localStorage.getItem("vsn-batchnumber") != '')  document.getElementById('batchnumber').value = window.localStorage.getItem("vsn-batchnumber");
+	if(window.localStorage.getItem("vsn-satsangdate") != '')  document.getElementById('satsangdate').value = window.localStorage.getItem("vsn-satsangdate");
 	
 	var objNames = document.getElementById('names');
-	if(window.localStorage.getItem("nsp-names") != '') 
-		objNames.value = window.localStorage.getItem("nsp-names");
+	if(window.localStorage.getItem("vsn-names") != '') 
+		objNames.value = window.localStorage.getItem("vsn-names");
 	else {
 		text = '';
-		for (let i = 1; i <= 10; i++) {
+		for (let i = 1; i <= 22; i++) {
 			text += i + 'person' + '\n'
 		}
 		objNames.value =  text
@@ -230,7 +235,7 @@ function downloadCSV() {
     hiddenElement.target = '_blank';
       
     //provide the name for the CSV file to be downloaded
-    hiddenElement.download = 'NSP_Allocations.csv';
+    hiddenElement.download = 'VSN_Allocations.csv';
     hiddenElement.click();
 }
 function operateNames(strDesign) {
@@ -250,17 +255,17 @@ function operateNames(strDesign) {
 	}
 	shuffle(curatedLines);
 	var text = '';
-	for (let i = 0; i < curatedLines.length; i++) { text += curatedLines[i] + 'wo\n'; }
+	for (let i = 0; i < curatedLines.length; i++) { text += curatedLines[i] + '\n'; }
 	objRandomnames.value = text;
 }
 
 function tempSave() {
-	window.localStorage.setItem("nsp-names", document.getElementById('names').value);
-	window.localStorage.setItem("nsp-batchnumber", document.getElementById('batchnumber').value);
-	window.localStorage.setItem("nsp-satsangdate", document.getElementById('satsangdate').value);
+	window.localStorage.setItem("vsn-names", document.getElementById('names').value);
+	window.localStorage.setItem("vsn-batchnumber", document.getElementById('batchnumber').value);
+	window.localStorage.setItem("vsn-satsangdate", document.getElementById('satsangdate').value);
 }
 
-function removensp(curatedLines) {
+function removeNSP(curatedLines) {
 	var curatedLinesNew = [];
 	for (i = 1; i < curatedLines.length; i++) {
 		curatedLinesNew.push(curatedLines[i].trim());
@@ -268,9 +273,9 @@ function removensp(curatedLines) {
 	return curatedLinesNew;
 }
 
-function addnsp(curatedLines) {
+function addNSP(curatedLines) {
 	var curatedLinesNew = [];
-	curatedLinesNew[0] = 'nsp';
+	curatedLinesNew[0] = 'NSP';
 	for (i = 0; i < curatedLines.length; i++) {
 		curatedLinesNew.push(curatedLines[i].trim());
 	}
