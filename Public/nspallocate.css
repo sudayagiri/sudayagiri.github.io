@@ -18,14 +18,24 @@ footer {
   background-color: #f2f2f2;
   padding: 10px;
 }*/
-/* Create two equal columns that floats next to each other */
-.col-sm-11 {
-  display: flex;
-}
-.image {
-  width: 30%;
+.panel-body-panel {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px; /* Space between images */
+    padding: 10px;
+    border: 2px solid #ccc;
+    background-color: #fff;
+    border-radius: 8px;
 }
 
+.panel-image {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
 
 /* Clear floats after the columns */
 .row:after {
