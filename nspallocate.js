@@ -24,7 +24,7 @@ function allocate(strStyle) {
 		alert('There are no people to allocate!');
 		return;
 	}
-	if (curatedLines[0].toUpperCase() == 'nsp') { 
+	if (curatedLines[0] == 'nsp') { 
 		curatedLines = removensp(curatedLines);
 		isRemovednsp = true;
 	}
