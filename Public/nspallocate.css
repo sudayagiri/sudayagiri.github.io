@@ -13,9 +13,10 @@
   height: 100px;
 }
 .jumbotron .logo-text-center {
-  display: inline;
+  display: middle;
   margin-right: 10px;
 }
+
 /* Add a gray background color and some padding to the footer 
 footer {
   background-color: #f2f2f2;
