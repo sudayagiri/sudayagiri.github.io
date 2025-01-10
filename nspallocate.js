@@ -144,7 +144,7 @@ function assignDhyaanam(peopleForDhyanam, nStart, curatedLines) {
 	makeText = fillDahses25("Dhyaanam: 1-3") + curatedLines[nStart] + "\n";
 	strCsv = strCsv + 'Dhyaanam' + ',1,3,,' + curatedLines[nStart] + "\n";
 	
-	if(peopleForDhyanam == 2) {
+/*	if(peopleForDhyanam == 2) {
 		makeText = makeText + fillDahses25("Dhyaanam: 4-8") + curatedLines[nStart+1] + "\n";
 		strCsv = strCsv + 'Dhyaanam' + ',4,8,,' + curatedLines[nStart+1] + "\n";
 	} else {
@@ -153,7 +153,7 @@ function assignDhyaanam(peopleForDhyanam, nStart, curatedLines) {
 		
 		makeText = makeText + fillDahses25("Dhyaanam: 6-8") + curatedLines[nStart+2] + "\n";
 		strCsv = strCsv + 'Dhyaanam' + ',6,8,,' + curatedLines[nStart+2] + "\n";
-	}
+	}*/
 	return makeText;
 }
 
