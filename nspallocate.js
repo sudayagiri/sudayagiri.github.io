@@ -41,8 +41,8 @@ function allocate(strStyle) {
 	}	
 	if (curatedLines.length < 20) {
 		curatedLines = makeItTwenty(curatedLines);
-		peopleForDhyanam = 2;
-	} else peopleForDhyanam = 3;
+		peopleForDhyanam = 1;
+	} else peopleForDhyanam = 1;
 	if(isRemovedNSP) { curatedLines = addNSP(curatedLines); }
 	
 	//==========================================================================================
