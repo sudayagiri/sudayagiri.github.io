@@ -141,7 +141,7 @@ function assignShlokas(nShlokas, nStart, nEnd, curatedLines, shlokamName) {
 	return text;
 }
 
-function allocateassignDhyaanam(peopleForDhyanam, nStart, curatedLines) {
+function assignDhyaanam(peopleForDhyanam, nStart, curatedLines) {
 	makeText = fillDahses25("Dhyaanam: 1") + curatedLines[nStart] + "\n";
 	strCsv = strCsv + 'Dhyaanam' + '1' + curatedLines[nStart] + "\n";
 	
