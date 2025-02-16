@@ -57,6 +57,8 @@ function allocaterrs(strStyle) {
 	
 //	var peopleForPoorvaangam = Math.ceil(purvanghamSlokas / perpersonApprox);
 //	var peopleForPhalashruti = Math.ceil(phalaShrutiSlokas / perpersonApprox);
+	var peopleForPoorvaangam = 0;
+	var peopleForPhalashruti = 0;
 	peopleForShlokas = totalDevotees - (peopleForPhalashruti + peopleForPoorvaangam)
 	
 	var strStartingPrayerPerson = getRandomName(curatedLines);
