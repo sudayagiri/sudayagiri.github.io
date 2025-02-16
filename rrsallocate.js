@@ -1,8 +1,8 @@
 var strCsv = '';
 var curatedLinesRolled  = [];
-var purvanghamSlokas = 10;
-var mahaMantras = 154;
-var phalaShrutiSlokas = 15;
+var purvanghamSlokas = 0;
+var mahaMantras = 38;
+var phalaShrutiSlokas = 0;
 
 function allocate(strStyle) {
 	//Save all values
@@ -140,9 +140,9 @@ function assignShlokas(nShlokas, nStart, nEnd, curatedLines, shlokamName) {
 	return text;
 }
 
-function assignDhyaanam(peopleForDhyanam, nStart, curatedLines) {
-	makeText = fillDahses25("Dhyaanam: 1-3") + curatedLines[nStart] + "\n";
-	strCsv = strCsv + 'Dhyaanam' + ',1,3,,' + curatedLines[nStart] + "\n";
+function allocateassignDhyaanam(peopleForDhyanam, nStart, curatedLines) {
+	makeText = fillDahses25("Dhyaanam: 1") + curatedLines[nStart] + "\n";
+	strCsv = strCsv + 'Dhyaanam' + '1' + curatedLines[nStart] + "\n";
 	
 /*	if(peopleForDhyanam == 2) {
 		makeText = makeText + fillDahses25("Dhyaanam: 4-8") + curatedLines[nStart+1] + "\n";
@@ -166,7 +166,7 @@ function loadPeople() {
 		objNames.value = window.localStorage.getItem("nsp-names");
 	else {
 		text = '';
-		for (let i = 1; i <= 22; i++) {
+		for (let i = 1; i <= 20; i++) {
 			text += i + 'person' + '\n'
 		}
 		objNames.value =  text
@@ -235,7 +235,7 @@ function downloadCSV() {
     hiddenElement.target = '_blank';
       
     //provide the name for the CSV file to be downloaded
-    hiddenElement.download = 'nsp_Allocations.csv';
+    hiddenElement.download = 'rrs_Allocations.csv';
     hiddenElement.click();
 }
 function operateNames(strDesign) {
