@@ -55,8 +55,8 @@ function allocaterrs(strStyle) {
 	var perpersonApprox = Math.round(total / totalDevotees);
 	console.log(perpersonApprox + ' per person approx.');
 	
-	var peopleForPoorvaangam = Math.ceil(purvanghamSlokas / perpersonApprox);
-	var peopleForPhalashruti = Math.ceil(phalaShrutiSlokas / perpersonApprox);
+//	var peopleForPoorvaangam = Math.ceil(purvanghamSlokas / perpersonApprox);
+//	var peopleForPhalashruti = Math.ceil(phalaShrutiSlokas / perpersonApprox);
 	peopleForShlokas = totalDevotees - (peopleForPhalashruti + peopleForPoorvaangam)
 	
 	var strStartingPrayerPerson = getRandomName(curatedLines);
