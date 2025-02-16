@@ -112,7 +112,8 @@ function allocaterrs(strStyle) {
 function assignShlokas(nShlokas, nStart, nEnd, curatedLines, shlokamName) {
 	
 	var totalPeople = nEnd - nStart;
-	var perpersonShlokasDecimal = nShlokas / totalPeople
+	//var perpersonShlokasDecimal = nShlokas / totalPeople
+	var perpersonShlokasDecimal = 2;
 	console.log(totalPeople + ' ppl with ' + perpersonShlokasDecimal + ' each');
 	
 	var startShloka = 1;
