@@ -4,7 +4,7 @@ var purvanghamSlokas = 0;
 var mahaMantras = 38;
 var phalaShrutiSlokas = 0;
 
-function allocate(strStyle) {
+function allocaterrs(strStyle) {
 	//Save all values
 	tempSave();
 	
@@ -69,9 +69,9 @@ function allocate(strStyle) {
 	//strCsv = strCsv + 'Starting Prayer: ,,,,' + strStartingPrayerPerson + '\n' + 'Pledge: ,,,,' + strPledgePerson + '\n\n';
 	strCsv = strCsv + 'Starting Prayer: ,,,,' + strStartingPrayerPerson + '\n\n'; //new line by NSP
 	//===================================================================================================
-	nStart = devoteeCounter;  nEnd = devoteeCounter + peopleForPoorvaangam; devoteeCounter = nEnd;
-	txtPoorvangam = assignShlokas(purvanghamSlokas, nStart, nEnd, curatedLines, 'Purvangam');
-	strCsv = strCsv + '\n'; 
+//	nStart = devoteeCounter;  nEnd = devoteeCounter + peopleForPoorvaangam; devoteeCounter = nEnd;
+//	txtPoorvangam = assignShlokas(purvanghamSlokas, nStart, nEnd, curatedLines, 'Purvangam');
+//	strCsv = strCsv + '\n'; 
 	
 	nStart = devoteeCounter;  nEnd = devoteeCounter + 1; devoteeCounter = nEnd;
 	txtNyasaa = fillDahses25("Nyasa: ") + curatedLines[nStart] + '\n';
@@ -85,9 +85,9 @@ function allocate(strStyle) {
 	txtShlokam = assignShlokas(mahaMantras, nStart, nEnd, curatedLines, 'Shlokam');
 	strCsv = strCsv + '\n';
 	
-	nStart = devoteeCounter;  nEnd = devoteeCounter + peopleForPhalashruti; devoteeCounter = nEnd;
-	txtPhalashruti = assignShlokas(phalaShrutiSlokas, nStart, nEnd, curatedLines, 'Phalashruti');
-	strCsv = strCsv + '\n';
+//	nStart = devoteeCounter;  nEnd = devoteeCounter + peopleForPhalashruti; devoteeCounter = nEnd;
+//	txtPhalashruti = assignShlokas(phalaShrutiSlokas, nStart, nEnd, curatedLines, 'Phalashruti');
+//	strCsv = strCsv + '\n';
 	
 	//===================================================================================================
 	var strEndingPrayerPerson = getRandomName(curatedLines);
@@ -96,7 +96,8 @@ function allocate(strStyle) {
 	
 	if(strStyle != 'shloka') {
 	//	objallocation.value = txtOmNamo + txtDashes + txtBatchDate + txtDashes + txtPledgePrayer + txtPoorvangam + '\n' + txtNyasaa + '\n' + txtDhyaaanam + '\n' + txtShlokam + '\n' + txtPhalashruti + '\n' + txtEndingPrayer;
-		objallocation.value = txtOmNamo + txtDashes + txtBatchDate + txtDashes +  txtPoorvangam + '\n' + txtNyasaa + '\n' + txtDhyaaanam + '\n' + txtShlokam + '\n' + txtPhalashruti + '\n' + txtEndingPrayer;
+	//	objallocation.value = txtOmNamo + txtDashes + txtBatchDate + txtDashes +  txtPoorvangam + '\n' + txtNyasaa + '\n' + txtDhyaaanam + '\n' + txtShlokam + '\n' + txtPhalashruti + '\n' + txtEndingPrayer;
+	    objallocation.value = txtOmNamo + txtDashes + txtBatchDate + txtDashes + txtNyasaa + '\n' + txtDhyaaanam + '\n' + txtShlokam  + '\n' + txtEndingPrayer;
 	} else {
 		devoteeCounter = 0;
 		nStart = devoteeCounter;
