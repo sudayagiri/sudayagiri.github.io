@@ -118,7 +118,7 @@ function assignShlokas(nShlokas, nStart, nEnd, curatedLines, shlokamName) {
 	//var perpersonShlokasDecimal = nShlokas / totalPeople
 	var perpersonShlokasDecimal = 2;
 	console.log(totalPeople + ' ppl with ' + perpersonShlokasDecimal + ' each');
-	var navarthi = totalPeople/19 ; //38/2 = 19 members
+	var navarthi = 1; //38/2 per member = 19 minimum members
 	var startShloka = 1;
 	var text = '';
 	var counter = nStart;
@@ -132,10 +132,12 @@ function assignShlokas(nShlokas, nStart, nEnd, curatedLines, shlokamName) {
 		if(endShlokaNumber > mahaMantras)
 			endShlokaNumber = mahaMantras;
 		    		
-		if (i != totalPeople || endShlokaNumber != mahaMantras) {
+		if (i != totalPeople ) {
 			makeText = fillDahses25(shlokamName + ": " + startShloka + "-" + endShlokaNumber + '-[' + (endShlokaNumber-startShloka+1) + ']')+ curatedLines[counter] + "\n";
 			strCsv = strCsv + shlokamName + ',' + startShloka + ',' + endShlokaNumber + ',' + '-[' +  (endShlokaNumber-startShloka+1) + '],' + curatedLines[counter] + "\n";
-			
+			if(endShlokaNumber == mahaMantras)
+				endShlokaNumber = 0;
+			    maketext = maketext + navarthi+ 'Avarthi' + "\n";
 			startShloka = endShlokaNumber + 1;
 			counter++;
 			text = text + makeText;
