@@ -137,8 +137,8 @@ function assignShlokas(nShlokas, nStart, nEnd, curatedLines, shlokamName) {
 			strCsv = strCsv + shlokamName + ',' + startShloka + ',' + endShlokaNumber + ',' + '-[' +  (endShlokaNumber-startShloka+1) + '],' + curatedLines[counter] + "\n";
 			if(endShlokaNumber == mahaMantras) {
 				endShlokaNumber = 0;
-			    makeText = makeText + navarthi+ 'Avarthi' + "\n";
-				navarthi = navarthi + 1;
+			   	navarthi = navarthi + 1;
+				makeText = makeText + navarthi+ 'Avarthi' + "\n";
 				}
 			startShloka = endShlokaNumber + 1;
 			counter++;
@@ -154,7 +154,7 @@ function assignShlokas(nShlokas, nStart, nEnd, curatedLines, shlokamName) {
 
 function assignDhyaanam(peopleForDhyanam, nStart, curatedLines) {
 	makeText = fillDahses25("Dhyaanam: 1") + curatedLines[nStart] + "\n";
-	strCsv = strCsv + 'Dhyaanam' + '1' + curatedLines[nStart] + "\n";
+	strCsv = strCsv + 'Dhyaanam' + ',1,' + curatedLines[nStart] + "\n";
 	
 /*	if(peopleForDhyanam == 2) {
 		makeText = makeText + fillDahses25("Dhyaanam: 4-8") + curatedLines[nStart+1] + "\n";
