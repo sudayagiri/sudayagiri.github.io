@@ -3,6 +3,7 @@ var curatedLinesRolled  = [];
 var purvanghamSlokas = 0;
 var mahaMantras = 38;
 var phalaShrutiSlokas = 0;
+var avarthi = 1;
 
 function allocaterrs(strStyle) {
 	//Save all values
@@ -117,18 +118,21 @@ function assignShlokas(nShlokas, nStart, nEnd, curatedLines, shlokamName) {
 	//var perpersonShlokasDecimal = nShlokas / totalPeople
 	var perpersonShlokasDecimal = 2;
 	console.log(totalPeople + ' ppl with ' + perpersonShlokasDecimal + ' each');
-	
+	var navarthi = totalPeople/19 ; //38/2 = 19 members
 	var startShloka = 1;
 	var text = '';
 	var counter = nStart;
 	var nPending = 0;
-	
+		
 	for (let i = 1; i <= totalPeople; i++) {
 		nResultant = nPending + perpersonShlokasDecimal;
 		nTotalShlokas = Math.floor(nResultant);
 		nPending = nResultant - nTotalShlokas;
 		endShlokaNumber = startShloka + nTotalShlokas-1;
-		if (i != totalPeople) {
+		if(endShlokaNumber > mahaMantras)
+			endShlokaNumber = mahaMantras;
+		    		
+		if (i != totalPeople || endShlokaNumber != mahaMantras) {
 			makeText = fillDahses25(shlokamName + ": " + startShloka + "-" + endShlokaNumber + '-[' + (endShlokaNumber-startShloka+1) + ']')+ curatedLines[counter] + "\n";
 			strCsv = strCsv + shlokamName + ',' + startShloka + ',' + endShlokaNumber + ',' + '-[' +  (endShlokaNumber-startShloka+1) + '],' + curatedLines[counter] + "\n";
 			
