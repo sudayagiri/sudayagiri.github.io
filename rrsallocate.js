@@ -123,6 +123,7 @@ function assignShlokas(nShlokas, nStart, nEnd, curatedLines, shlokamName) {
 	var text = '';
 	var counter = nStart;
 	var nPending = 0;
+	text = text + navarthi+ '-Avarthi' + "\n"; 
 		
 	for (let i = 1; i <= totalPeople; i++) {
 		nResultant = nPending + perpersonShlokasDecimal;
@@ -131,7 +132,7 @@ function assignShlokas(nShlokas, nStart, nEnd, curatedLines, shlokamName) {
 		endShlokaNumber = startShloka + nTotalShlokas-1;
 		if(endShlokaNumber > mahaMantras)
 			endShlokaNumber = mahaMantras;
-		text = text + navarthi+ '-Avarthi' + "\n";    		
+		   		
 		if (i != totalPeople ) {
 			makeText = fillDahses25(shlokamName + ": " + startShloka + "-" + endShlokaNumber + '-[' + (endShlokaNumber-startShloka+1) + ']')+ curatedLines[counter] + "\n";
 			strCsv = strCsv + shlokamName + ',' + startShloka + ',' + endShlokaNumber + ',' + '-[' +  (endShlokaNumber-startShloka+1) + '],' + curatedLines[counter] + "\n";
