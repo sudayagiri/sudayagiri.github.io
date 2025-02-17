@@ -123,7 +123,7 @@ function assignShlokas(nShlokas, nStart, nEnd, curatedLines, shlokamName) {
 	var text = '';
 	var counter = nStart;
 	var nPending = 0;
-	text = text + navarthi+ '-Avarthi' + "\n"; 
+	text = text + navarthi+ '--Avarthi' + "\n"; 
 		
 	for (let i = 1; i <= totalPeople; i++) {
 		nResultant = nPending + perpersonShlokasDecimal;
