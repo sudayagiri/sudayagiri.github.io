@@ -135,9 +135,11 @@ function assignShlokas(nShlokas, nStart, nEnd, curatedLines, shlokamName) {
 		if (i != totalPeople ) {
 			makeText = fillDahses25(shlokamName + ": " + startShloka + "-" + endShlokaNumber + '-[' + (endShlokaNumber-startShloka+1) + ']')+ curatedLines[counter] + "\n";
 			strCsv = strCsv + shlokamName + ',' + startShloka + ',' + endShlokaNumber + ',' + '-[' +  (endShlokaNumber-startShloka+1) + '],' + curatedLines[counter] + "\n";
-			if(endShlokaNumber == mahaMantras)
+			if(endShlokaNumber == mahaMantras) {
 				endShlokaNumber = 0;
 			    maketext = maketext + navarthi+ 'Avarthi' + "\n";
+				navarthi = navarthi + 1;
+				}
 			startShloka = endShlokaNumber + 1;
 			counter++;
 			text = text + makeText;
