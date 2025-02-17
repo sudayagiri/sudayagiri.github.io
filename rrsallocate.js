@@ -140,8 +140,8 @@ function assignShlokas(nShlokas, nStart, nEnd, curatedLines, shlokamName) {
 				endShlokaNumber = 0;
 			   	navarthi = navarthi + 1;
 				makeText = makeText + navarthi+ '-Avarthi' + "\n";
-				if(totalPeople - counter <= 19){
-					perpersonShlokasDecimal = 38/(totalPeople-counter);
+				if(totalPeople - counter < 19){
+					perpersonShlokasDecimal = 38/(totalPeople-counter+1);
 				}
 				}
 			startShloka = endShlokaNumber + 1;
