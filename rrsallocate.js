@@ -138,7 +138,7 @@ function assignShlokas(nShlokas, nStart, nEnd, curatedLines, shlokamName) {
 			if(endShlokaNumber == mahaMantras) {
 				endShlokaNumber = 0;
 			   	navarthi = navarthi + 1;
-				makeText = makeText + navarthi+ 'Avarthi' + "\n";
+				makeText = makeText + navarthi+ ' -Avarthi' + "\n";
 				}
 			startShloka = endShlokaNumber + 1;
 			counter++;
