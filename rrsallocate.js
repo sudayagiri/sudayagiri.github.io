@@ -106,3 +106,14 @@ function assignShlokas(nShlokas, nStart, nEnd, curatedLines, shlokamName) {
     }
     return text;
 }
+
+function makeItTwenty(curatedLines) {
+    while (curatedLines.length < 20) {
+        curatedLines.push("Placeholder Name");
+    }
+    return curatedLines;
+}
+
+function clearNames() {
+    document.getElementById('names').value = '';
+}
