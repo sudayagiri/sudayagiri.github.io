@@ -5,8 +5,9 @@ var mahaMantras = 38;
 var phalaShrutiSlokas = 0;
 var avarthi = 1;
 
-function allocaterrs(strStyle) {
+function allocaterrs(strStyle,local="no") {
 	//Save all values
+	if(local =="no"){
 	tempSave();
 	
 	strCsv = 'Batch Number,' + window.localStorage.getItem("nsp-batchnumber") + ',,Date,'+ window.localStorage.getItem("nsp-satsangdate") + '\n\n';
@@ -23,6 +24,7 @@ function allocaterrs(strStyle) {
 		if (splittedLines[i].trim()  != "") {
 			curatedLines.push(splittedLines[i].trim());
 		}
+	}
 	}
 	if (curatedLines.length == 0) {
 		alert('There are no people to allocate!');
@@ -64,7 +66,7 @@ function allocaterrs(strStyle) {
 	
 	var strStartingPrayerPerson = getRandomName(curatedLines);
 	//var strPledgePerson = getRandomName(curatedLines);
-	
+	if(local == "no"){
 	txtOmNamo = '*Om Namo Narayana* \n';
 	txtDashes = '--------------------------------------------\n';
 	txtBatchDate = 'Batch Number: ' + window.localStorage.getItem("nsp-batchnumber") + '  [Satsang Date: ' + window.localStorage.getItem("nsp-satsangdate") + ']\n';
@@ -74,7 +76,8 @@ function allocaterrs(strStyle) {
 	//===================================================================================================
 //	nStart = devoteeCounter;  nEnd = devoteeCounter + peopleForPoorvaangam; devoteeCounter = nEnd;
 //	txtPoorvangam = assignShlokas(purvanghamSlokas, nStart, nEnd, curatedLines, 'Purvangam');
-//	strCsv = strCsv + '\n'; 
+//	strCsv = strCsv + '\n';
+	} 
 	
 	nStart = devoteeCounter;  nEnd = devoteeCounter + 1; devoteeCounter = nEnd;
 	txtNyasaa = fillDahses25("Nyasa: ") + curatedLines[nStart] + '\n';
@@ -93,9 +96,11 @@ function allocaterrs(strStyle) {
 //	strCsv = strCsv + '\n';
 	
 	//===================================================================================================
+	if(local == "no"){
 	var strEndingPrayerPerson = getRandomName(curatedLines);
 	txtEndingPrayer = 'Ending Prayer: ' + strEndingPrayerPerson + '\n';
 	strCsv = strCsv + 'Ending Prayer: ,,,,' + strEndingPrayerPerson + '\n';
+	}
 	
 	if(strStyle != 'shloka') {
 	//	objallocation.value = txtOmNamo + txtDashes + txtBatchDate + txtDashes + txtPledgePrayer + txtPoorvangam + '\n' + txtNyasaa + '\n' + txtDhyaaanam + '\n' + txtShlokam + '\n' + txtPhalashruti + '\n' + txtEndingPrayer;
@@ -140,9 +145,8 @@ function assignShlokas(nShlokas, nStart, nEnd, curatedLines, shlokamName) {
 				endShlokaNumber = 0;
 			   	navarthi = navarthi + 1;
 				makeText = makeText + navarthi+ '-Avarthi' + "\n";
-				if(totalPeople - counter < 19){
-					perpersonShlokasDecimal = 38/(totalPeople-counter+1);
-				}
+				allocaterrs
+				locaterrs();
 				}
 			startShloka = endShlokaNumber + 1;
 			counter++;
