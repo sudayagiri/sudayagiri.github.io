@@ -22,7 +22,10 @@ function allocaterrs(strStyle) {
         let name = splittedLines[i].trim();
         if (name !== "") {
             if (name.toUpperCase() === "NSP") {
-                nspNames.push(name);
+                if (!isRemovedNSP) {
+                    nspNames.push(name);
+                    isRemovedNSP = true;
+                }
             } else {
                 curatedLines.push(name);
             }
@@ -38,9 +41,7 @@ function allocaterrs(strStyle) {
         curatedLines = makeItTwenty(curatedLines);
     }
 
-    if (nspNames.length > 0) {
-        curatedLines = nspNames.concat(curatedLines);
-    }
+    curatedLines = nspNames.concat(curatedLines);
 
     var devoteeCounter = 0;
     var total = purvanghamSlokas + mahaMantras + phalaShrutiSlokas;
@@ -77,6 +78,7 @@ function assignShlokas(nShlokas, nStart, nEnd, curatedLines, shlokamName) {
     var text = '';
     var counter = nStart;
     var avarthiCounter = 1;
+    var remainingPeople = totalPeople;
 
     text += avarthiCounter + '--Avarthi' + "\n";
 
@@ -89,13 +91,15 @@ function assignShlokas(nShlokas, nStart, nEnd, curatedLines, shlokamName) {
         if (i != totalPeople) {
             let makeText = fillDahses25(shlokamName + ": " + startShloka + "-" + endShlokaNumber) + curatedLines[counter] + "\n";
             strCsv += shlokamName + ',' + startShloka + ',' + endShlokaNumber + ',' + curatedLines[counter] + "\n";
-            
-            if (endShlokaNumber === mahaMantras) {
-                if (totalPeople - counter > 5) {
-                    avarthiCounter++;
-                    text += avarthiCounter + '-Avarthi' + "\n";
-                }
+            remainingPeople--;
+
+            if (endShlokaNumber === mahaMantras && remainingPeople > 5) {
+                avarthiCounter++;
+                text += avarthiCounter + '-Avarthi' + "\n";
+            } else if (remainingPeople <= 5) {
+                break;
             }
+
             startShloka = endShlokaNumber + 1;
             counter++;
             text += makeText;
