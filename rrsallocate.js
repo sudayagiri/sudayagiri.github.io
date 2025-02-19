@@ -1,52 +1,105 @@
-function allocateChanting(strStyle) {
+var strCsv = '';
+var curatedLinesRolled = [];
+var purvanghamSlokas = 0;
+var mahaMantras = 38;
+var phalaShrutiSlokas = 0;
+var avarthi = 1;
+
+function allocaterrs(strStyle) {
     tempSave();
-    
+    strCsv = 'Batch Number,' + window.localStorage.getItem("nsp-batchnumber") + ',,Date,'+ window.localStorage.getItem("nsp-satsangdate") + '\n\n';
+    strCsv += 'Shlokam,Start,End,Count,Devotee Name,Backup Chanter' + '\n\n';
     var txtNames = document.getElementById('names').value;
     var objallocation = document.getElementById('allocation');
-    
-    var splittedLines = txtNames.split('\n').map(name => name.trim()).filter(name => name !== "");
-    if (splittedLines.length === 0) {
+    var text = '';
+    var isRemovedNSP = false;
+
+    var splittedLines = txtNames.split('\n');
+    var curatedLines = [];
+    var nspNames = [];
+
+    for (let i = 0; i < splittedLines.length; i++) {
+        let name = splittedLines[i].trim();
+        if (name !== "") {
+            if (name.toUpperCase() === "NSP") {
+                nspNames.push(name);
+            } else {
+                curatedLines.push(name);
+            }
+        }
+    }
+
+    if (curatedLines.length === 0) {
         alert('There are no people to allocate!');
         return;
     }
-    
-    if (strStyle === 'random') shuffle(splittedLines);
-    
-    let totalSlokas = 38;
-    let avarthi = 1;
-    let personIndex = 0;
-    let text = "";
-    
-    while (personIndex < splittedLines.length) {
-        text += `Avarthi ${avarthi}\n`;
-        
-        // Assign Nyasam
-        text += `Nyasam: ${splittedLines[personIndex]}\n`;
-        personIndex = (personIndex + 1) % splittedLines.length;
-        
-        // Assign Dhyanam
-        text += `Dhyanam: ${splittedLines[personIndex]}\n`;
-        personIndex = (personIndex + 1) % splittedLines.length;
-        
-        // Assign Slokas
-        let slokasPerPerson = Math.ceil(totalSlokas / (splittedLines.length - personIndex));
-        let startSloka = 1;
-        for (; personIndex < splittedLines.length; personIndex++) {
-            let endSloka = Math.min(startSloka + slokasPerPerson - 1, totalSlokas);
-            text += `Slokas ${startSloka}-${endSloka}: ${splittedLines[personIndex]}\n`;
-            if (endSloka === totalSlokas) break;
-            startSloka = endSloka + 1;
-        }
-        
-        avarthi++;
+
+    if (curatedLines.length < 20) {
+        curatedLines = makeItTwenty(curatedLines);
     }
-    
-    objallocation.value = text;
+
+    if (nspNames.length > 0) {
+        curatedLines = nspNames.concat(curatedLines);
+    }
+
+    var devoteeCounter = 0;
+    var total = purvanghamSlokas + mahaMantras + phalaShrutiSlokas;
+    var totalDevotees = curatedLines.length - 1;
+    var perPersonApprox = Math.round(total / totalDevotees);
+    var peopleForShlokas = totalDevotees;
+
+    var strStartingPrayerPerson = getRandomName(curatedLines);
+    strCsv += 'Starting Prayer: ,,,,' + strStartingPrayerPerson + "\n\n";
+
+    nStart = devoteeCounter;  nEnd = devoteeCounter + 1; devoteeCounter = nEnd;
+    txtNyasaa = fillDahses25("Nyasa: ") + curatedLines[nStart] + '\n';
+    strCsv += 'Nyasa' + ',,,,' + curatedLines[nStart] + "\n\n";
+
+    nStart = devoteeCounter;  nEnd = devoteeCounter + 1; devoteeCounter = nEnd;
+    txtDhyaaanam = assignDhyaanam(1, nStart, curatedLines);
+    strCsv += '\n';
+
+    nStart = devoteeCounter;  nEnd = devoteeCounter + peopleForShlokas;
+    txtShlokam = assignShlokas(mahaMantras, nStart, nEnd, curatedLines, 'Shlokam');
+    strCsv += '\n';
+
+    var strEndingPrayerPerson = getRandomName(curatedLines);
+    txtEndingPrayer = 'Ending Prayer: ' + strEndingPrayerPerson + '\n';
+    strCsv += 'Ending Prayer: ,,,,' + strEndingPrayerPerson + '\n';
+
+    objallocation.value = txtNyasaa + '\n' + txtDhyaaanam + '\n' + txtShlokam + '\n' + txtEndingPrayer;
 }
 
-function shuffle(array) {
-    for (let i = array.length - 1; i > 0; i--) {
-        let j = Math.floor(Math.random() * (i + 1));
-        [array[i], array[j]] = [array[j], array[i]];
+function assignShlokas(nShlokas, nStart, nEnd, curatedLines, shlokamName) {
+    var totalPeople = nEnd - nStart;
+    var perpersonShlokasDecimal = Math.floor(nShlokas / totalPeople);
+    var startShloka = 1;
+    var text = '';
+    var counter = nStart;
+    var avarthiCounter = 1;
+
+    text += avarthiCounter + '--Avarthi' + "\n";
+
+    for (let i = 1; i <= totalPeople; i++) {
+        let endShlokaNumber = startShloka + perpersonShlokasDecimal - 1;
+        if (endShlokaNumber > mahaMantras) {
+            endShlokaNumber = mahaMantras;
+        }
+
+        if (i != totalPeople) {
+            let makeText = fillDahses25(shlokamName + ": " + startShloka + "-" + endShlokaNumber) + curatedLines[counter] + "\n";
+            strCsv += shlokamName + ',' + startShloka + ',' + endShlokaNumber + ',' + curatedLines[counter] + "\n";
+            
+            if (endShlokaNumber === mahaMantras) {
+                if (totalPeople - counter > 5) {
+                    avarthiCounter++;
+                    text += avarthiCounter + '-Avarthi' + "\n";
+                }
+            }
+            startShloka = endShlokaNumber + 1;
+            counter++;
+            text += makeText;
+        }
     }
+    return text;
 }
