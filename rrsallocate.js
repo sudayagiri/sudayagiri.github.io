@@ -145,9 +145,8 @@ function assignShlokas(nShlokas, nStart, nEnd, curatedLines, shlokamName) {
 				endShlokaNumber = 0;
 			   	navarthi = navarthi + 1;
 				makeText = makeText + navarthi+ '-Avarthi' + "\n";
-				allocaterrs
-				locaterrs();
-				}
+				allocaterrs('asis','yes');
+								}
 			startShloka = endShlokaNumber + 1;
 			counter++;
 			text = text + makeText;
