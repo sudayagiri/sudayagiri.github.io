@@ -6,7 +6,6 @@ var phalaShrutiSlokas = 0;
 var avarthi = 1;
 
 function allocaterrs(strStyle) {
-    tempSave();
     strCsv = 'Batch Number,' + window.localStorage.getItem("nsp-batchnumber") + ',,Date,'+ window.localStorage.getItem("nsp-satsangdate") + '\n\n';
     strCsv += 'Shlokam,Start,End,Count,Devotee Name,Backup Chanter' + '\n\n';
     var txtNames = document.getElementById('names').value;
