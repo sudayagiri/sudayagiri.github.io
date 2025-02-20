@@ -270,6 +270,7 @@ function sendInWhatsApp() {
 	
 }
 function calculateAvarthis(curatedLines) {
+	 console.log( curatedLines.length + 'curatedLines.length ');
     if(curatedLines.length > magicNumber) {
 		numA = Math.round(curatedLines.length / magicNumber);
 		
@@ -284,11 +285,13 @@ function calculateAvarthis(curatedLines) {
 		 else {
 			 //no need further allocation, since zero remaining people
 		 }
+		
 		 console.log(numA + '- if case total Avarthis');
 	}
 	else {
 		//total people are <= 21
 		needmorethan2Shlokas_lastA = 1;
+		 leftPeople = curatedLines.length;
 		console.log(numA + '- else case total Avarthis');
 	     }
 	  
