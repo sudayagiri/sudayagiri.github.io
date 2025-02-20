@@ -54,20 +54,18 @@ function allocaterrs(strStyle) {
 	//==========================================================================================
 	calculateAvarthis(curatedLines);
 	//Start Processing
-	var devoteeCounter = 1;
+	var devoteeCounter = 0;
 	var strStartingPrayerPerson = getRandomName(curatedLines);
 
 	
 	txtOmNamo = '*Om Namo Narayana* \n';
 	txtDashes = '--------------------------------------------\n';
 	txtBatchDate = 'Batch Number: ' + window.localStorage.getItem("nsp-batchnumber") + '  [Satsang Date: ' + window.localStorage.getItem("nsp-satsangdate") + ']\n';
-	//txtPledgePrayer = 'Starting Prayer: ' + strStartingPrayerPerson + '\n' + 'Pledge: ' + strPledgePerson + '\n\n';
+	txtPrayer = 'Starting Prayer: ' + strStartingPrayerPerson + '\n\n';
 	//strCsv = strCsv + 'Starting Prayer: ,,,,' + strStartingPrayerPerson + '\n' + 'Pledge: ,,,,' + strPledgePerson + '\n\n';
 	strCsv = strCsv + 'Starting Prayer: ,,,,' + strStartingPrayerPerson + '\n\n'; //new line by NSP
 	//===================================================================================================
-//	nStart = devoteeCounter;  nEnd = devoteeCounter + peopleForPoorvaangam; devoteeCounter = nEnd;
-//	txtPoorvangam = assignShlokas(purvanghamSlokas, nStart, nEnd, curatedLines, 'Purvangam');
-//	strCsv = strCsv + '\n'; 
+
 	for (i=1; i<=numA; i++) {
 	
 	nStart = devoteeCounter;  nEnd = devoteeCounter + 1; devoteeCounter = nEnd;
@@ -82,16 +80,13 @@ function allocaterrs(strStyle) {
 	txtShlokam = assignShlokas(mahaMantras, nStart, nEnd, curatedLines, 'Shlokam',peoplePerA[i]);
 	strCsv = strCsv + '\n';
 	}
-//	nStart = devoteeCounter;  nEnd = devoteeCounter + peopleForPhalashruti; devoteeCounter = nEnd;
-//	txtPhalashruti = assignShlokas(phalaShrutiSlokas, nStart, nEnd, curatedLines, 'Phalashruti');
-//	strCsv = strCsv + '\n';
-	
+
 	//===================================================================================================
 	var strEndingPrayerPerson = getRandomName(curatedLines);
 	txtEndingPrayer = 'Ending Prayer: ' + strEndingPrayerPerson + '\n';
 	strCsv = strCsv + 'Ending Prayer: ,,,,' + strEndingPrayerPerson + '\n';
 	
-	objallocation.value = txtOmNamo + txtDashes + txtBatchDate + txtDashes + txtNyasaa + '\n' + txtDhyaaanam + '\n' + txtShlokam  + '\n' + txtEndingPrayer;
+	objallocation.value = txtOmNamo + txtDashes + txtBatchDate + txtDashes + txtPrayer + '\n' + txtNyasaa + '\n' + txtDhyaaanam + '\n' + txtShlokam  + '\n' + txtEndingPrayer;
 	
 	
 }
@@ -293,7 +288,7 @@ function calculateAvarthis(curatedLines) {
 		//total people are <= 21
 		needmorethan2Shlokas_lastA = 1;
 	     }
-	  }
+	  
 	 console.log(numA + '-total Avarthis' + leftPeople + '-leftpeople');
 	 var prevShlokacount = 0; 
 	 for (i=1;i<=numA;i++){
@@ -317,4 +312,5 @@ function calculateAvarthis(curatedLines) {
 			}
 		}
 	 }
+}
 			
