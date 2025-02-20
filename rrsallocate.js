@@ -97,7 +97,7 @@ function assignShlokas(nShlokas, nStart, nEnd, curatedLines, shlokamName, people
 	var totalPeople = peoplePerAvarthi-2;
 	var perpersonShlokasDecimal = nShlokas / (peoplePerAvarthi-2);
 	//var perpersonShlokasDecimal = 2;
-	console.log(peoplePerAvarthi + ' ppl with ' + perpersonShlokasDecimal + ' each ' + peoplePerA[1]);
+	console.log(peoplePerAvarthi + ' ppl with ' + perpersonShlokasDecimal + ' each ' + peoplePerA[1]+1);
 	
 	var startShloka = 1;
 	var text = '';
