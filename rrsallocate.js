@@ -293,7 +293,7 @@ function calculateAvarthis(curatedLines) {
 	     }
 	  
 	 console.log(numA + '-total Avarthis' + leftPeople + '-leftpeople');
-	 var arrayAdjustleftpeopleforAvarti[] ;
+	 var arrayAdjustleftpeopleforAvarti = [] ;
 	 var prevpplcount = 0; 
 	 for (i=1;i<=numA;i++){
 		
