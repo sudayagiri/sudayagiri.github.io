@@ -39,16 +39,17 @@ function allocaterrs(strStyle) {
 	}
 	
 	//Randomize / Making big / Rolling
-	console.log(strStyle);
+	console.log(strStyle+'curated lines '+ curatedLines);
 	if(strStyle == 'random') shuffle(curatedLines);
 	if(strStyle == 'roll') {
 		if (curatedLinesRolled.length == 0) { console.log('no rolled'); rollNames(curatedLines, true); }
 		else { console.log(curatedLinesRolled); rollNames(curatedLinesRolled, true); curatedLines = Array.from(curatedLinesRolled); }
 	}	
-	if (curatedLines.length < 20) {
-		curatedLines = makeItTwenty(curatedLines);
+	//if (curatedLines.length < 20) {
+	//	curatedLines = makeItTwenty(curatedLines);
+	//	peopleForDhyanam = 1;
+	//} else 
 		peopleForDhyanam = 1;
-	} else peopleForDhyanam = 1;
 	if(isRemovedNSP) { curatedLines = addNSP(curatedLines); }
 	
 	//==========================================================================================
