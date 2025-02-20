@@ -3,6 +3,7 @@ var curatedLinesRolled = [];
 var purvanghamSlokas = 0;
 var mahaMantras = 38;
 var phalaShrutiSlokas = 0;
+var avarthi = 1;
 
 function allocaterrs(strStyle) {
     tempSave();
@@ -30,9 +31,9 @@ function allocaterrs(strStyle) {
     }
     
     var devoteeCounter = 0;
-    
     var totalShlokas = mahaMantras;
-    var perPersonShlokas = Math.ceil(totalShlokas / curatedLines.length);
+    var numPeople = curatedLines.length - 1;
+    var perPersonShlokas = numPeople > 0 ? Math.ceil(totalShlokas / numPeople) : totalShlokas;
     
     var strStartingPrayerPerson = getRandomName(curatedLines);
     strCsv += 'Starting Prayer: ,,,,' + strStartingPrayerPerson + '\n\n';
@@ -51,17 +52,20 @@ function allocaterrs(strStyle) {
 function assignShlokas(totalShlokas, startIdx, curatedLines) {
     var text = '';
     var numPeople = curatedLines.length - startIdx;
-    var perPerson = Math.floor(totalShlokas / numPeople);
+    var perPerson = numPeople > 0 ? Math.floor(totalShlokas / numPeople) : totalShlokas;
     var remaining = totalShlokas % numPeople;
     var start = 1;
+    var avarthi = 1;
     
     for (let i = startIdx; i < curatedLines.length; i++) {
         let count = perPerson + (remaining-- > 0 ? 1 : 0);
         let end = start + count - 1;
+        if (end > totalShlokas) end = totalShlokas;
         
-        text += `Shlokas ${start}-${end}: ${curatedLines[i]}\n`;
+        text += `Avarthi ${avarthi}: ${start}-${end} - ${curatedLines[i]}\n`;
         strCsv += `Shlokam,${start},${end},${end - start + 1},${curatedLines[i]}\n`;
         
+        if (end == totalShlokas) break;
         start = end + 1;
     }
     return text;
