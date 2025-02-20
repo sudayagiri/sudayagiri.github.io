@@ -271,7 +271,7 @@ function sendInWhatsApp() {
 }
 function calculateAvarthis(curatedLines) {
     if(curatedLines.length > magicNumber) {
-		numA = curatedLines.length / magicNumber;
+		numA = Math.round(curatedLines.length / magicNumber);
 		
 		leftPeople = curatedLines.length % magicNumber; //magicNumber is 21 19 + 2 -> 19*2=38, 1 nyasam, 1 dhyanam
 		if (leftPeople >= 12 && leftPeople <=20) {
@@ -293,11 +293,14 @@ function calculateAvarthis(curatedLines) {
 	     }
 	  
 	 console.log(numA + '-total Avarthis' + leftPeople + '-leftpeople');
-	 var arrayAdjustleftpeopleforAvarti = [] ;
+	 var arrayAdjustleftpeopleforAvarti = [0] ;
 	 var prevpplcount = 0; 
 	 for (i=1;i<=numA;i++){
-		arrayAdjustleftpeopleforAvarti[i] = Math.ceil(((leftPeople-prevpplcount)/(numA-i)));
+		if(numA >= 2) {
+		arrayAdjustleftpeopleforAvarti[i] = Math.ceil(((leftPeople-prevpplcount)/(numA-i-1)));
+		}
 		prevpplcount = prevpplcount+arrayAdjustleftpeopleforAvarti[i];
+		
 		if(i==numA) {
 		    if(needmorethan2Shlokas_lastA ==1){
 			  peoplePerA[i] = leftPeople; 
