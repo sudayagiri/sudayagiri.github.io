@@ -55,6 +55,7 @@ function allocaterrs(strStyle) {
 	calculateAvarthis(curatedLines);
 	//Start Processing
 	var devoteeCounter = 1;
+	var strStartingPrayerPerson = getRandomName(curatedLines);
 
 	
 	txtOmNamo = '*Om Namo Narayana* \n';
