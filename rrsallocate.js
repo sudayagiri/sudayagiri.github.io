@@ -8,6 +8,7 @@ var needSpecialhandling_lastA = 0;
 var peoplePerA = [];
 var magicNumber = 21;
 var numA = 0;
+var leftPeople = 0;
 
 function allocaterrs(strStyle) {
 	//Save all values
@@ -91,7 +92,7 @@ function allocaterrs(strStyle) {
 	
 	objallocation.value = txtOmNamo + txtDashes + txtBatchDate + txtDashes + txtNyasaa + '\n' + txtDhyaaanam + '\n' + txtShlokam  + '\n' + txtEndingPrayer;
 	
-	}
+	
 }
 
 function assignShlokas(nShlokas, nStart, nEnd, curatedLines, shlokamName, peoplePerAvarthi) {
@@ -280,18 +281,19 @@ function calculateAvarthis(curatedLines) {
 			numA = numA + 1;
 			needmorethan2Shlokas_lastA = 1; //means more than 2 people per person
 		 }
-		 else if (leftPeople <=11 and leftPeople > 0 ){
+		 else if (leftPeople <=11 && leftPeople > 0 ){
 			 adjustAvarthiListwithLeftPeople = 1;
 		 }
 		 else {
 			 //no need further allocation, since zero remaining people
 		 }
+	}
 	else {
 		//total people are <= 21
 		needmorethan2Shlokas_lastA = 1;
 	     }
 	  }
-	 console.log(numA + '-total Avarthis' + leftPeople+ '-leftpeople');
+	 console.log(numA + '-total Avarthis' + leftPeople + '-leftpeople');
 	 var prevShlokacount = 0; 
 	 for (i=1;i<=numA;i++){
 		prevShlokacount = 
@@ -315,4 +317,3 @@ function calculateAvarthis(curatedLines) {
 		}
 	 }
 			
-}	  
