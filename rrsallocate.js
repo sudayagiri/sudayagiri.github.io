@@ -293,6 +293,7 @@ function calculateAvarthis(curatedLines) {
 		//total people are <= 21
 		needmorethan2Shlokas_lastA = 1;
 		 leftPeople = curatedLines.length;
+		 numA = 1;
 		console.log(numA + '- else case total Avarthis');
 	     }
 	  
