@@ -296,8 +296,7 @@ function calculateAvarthis(curatedLines) {
 	 var arrayAdjustleftpeopleforAvarti = [] ;
 	 var prevpplcount = 0; 
 	 for (i=1;i<=numA;i++){
-		
-		arrayAdjustleftpeopleforAvarti[i] = math.ceil(((leftPeople-prevpplcount)/(numA-i)));
+		arrayAdjustleftpeopleforAvarti[i] = Math.ceil(((leftPeople-prevpplcount)/(numA-i)));
 		prevpplcount = prevpplcount+arrayAdjustleftpeopleforAvarti[i];
 		if(i==numA) {
 		    if(needmorethan2Shlokas_lastA ==1){
