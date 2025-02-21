@@ -140,7 +140,17 @@ for (i = 1; i <= numA; i++) {
 	
 	nStart = devoteeCounter;  nEnd = devoteeCounter + peoplePerA[i]-2; devoteeCounter = nEnd; totalPeople = peoplePerA[i];
 	//======================================================-------------------------------------------------------
-	var perpersonShlokasDecimal = mahaMantras / (peoplePerA[i]-2);
+	for (let i = 1; i <= numA; i++) {
+    console.log(`Checking peoplePerA[${i}]:`, peoplePerA[i]);
+
+    if (typeof peoplePerA[i] === "undefined") {
+        console.error(`ERROR: peoplePerA[${i}] is undefined!`);
+    } else {
+        var perpersonShlokasDecimal = mahaMantras / (peoplePerA[i] - 2);
+        console.log(`Per person shlokas: ${perpersonShlokasDecimal}`);
+    }
+}
+//	var perpersonShlokasDecimal = mahaMantras / (peoplePerA[i]-2);
 	//var perpersonShlokasDecimal = 2;
 	console.log( peoplePerA[i] +' ppl with ' + perpersonShlokasDecimal + ' each ');
 	
