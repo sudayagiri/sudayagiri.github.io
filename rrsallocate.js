@@ -9,6 +9,7 @@ var peoplePerA = [];
 var magicNumber = 21;
 var numA = 0;
 var leftPeople = 0;
+var totalPeople = 0;
 
 function allocaterrs(strStyle) {
 	//Save all values
@@ -78,7 +79,7 @@ function allocaterrs(strStyle) {
 	strCsv = strCsv + '\n';
 	
 	nStart = devoteeCounter;  nEnd = devoteeCounter + peoplePerA[i]-2; devoteeCounter = nEnd;
-	txtShlokam = assignShlokas(mahaMantras, nStart, nEnd, curatedLines, 'Shlokam',peoplePerA[i]-2);
+	txtShlokam = assignShlokas(mahaMantras, nStart, nEnd, curatedLines, 'Shlokam', (peoplePerA[i]-2));
 	strCsv = strCsv + '\n';
 	}
 
@@ -94,7 +95,7 @@ function allocaterrs(strStyle) {
 
 function assignShlokas(nShlokas, nStart, nEnd, curatedLines, shlokamName, totalPeople ) {
 
-	var perpersonShlokasDecimal = nShlokas / (totalPeople);
+	var perpersonShlokasDecimal = nShlokas / totalPeople;
 	//var perpersonShlokasDecimal = 2;
 	console.log(totalPeople + ' ppl with ' + perpersonShlokasDecimal + ' each ' + peoplePerA[1]+ '    ---1');
 	
