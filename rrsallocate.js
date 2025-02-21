@@ -140,19 +140,19 @@ for (i = 1; i <= numA; i++) {
 	
 	nStart = devoteeCounter;  nEnd = devoteeCounter + peoplePerA[i]-2; devoteeCounter = nEnd; totalPeople = peoplePerA[i]-2;
 	//======================================================-------------------------------------------------------
-	for (let i = 1; i <= numA; i++) {
-    console.log(`Checking peoplePerA[${i}]:`, peoplePerA[i]);
+	for (let j = 1; j <= numA; j++) {
+    console.log(`Checking peoplePerA[${j}]:`, peoplePerA[j]);
 
-    if (typeof peoplePerA[i] === "undefined") {
-        console.error(`ERROR: peoplePerA[${i}] is undefined!`);
+    if (typeof peoplePerA[j] === "undefined") {
+        console.error(`ERROR: peoplePerA[${j}] is undefined!`);
     } else {
-        var perpersonShlokasDecimal = Math.floor(mahaMantras / (peoplePerA[i] - 2));
+        var perpersonShlokasDecimal = Math.floor(mahaMantras / (peoplePerA[j] - 2));
         console.log(`Per person shlokas: ${perpersonShlokasDecimal}`);
     }
    }
 //	var perpersonShlokasDecimal = mahaMantras / (peoplePerA[i]-2);
 	//var perpersonShlokasDecimal = 2;
-	console.log( 'value of i' + i+'  '+peoplePerA[i] +' ppl with ' + perpersonShlokasDecimal + ' each ' + totalPeople + '--totalPeople' +nEnd+'--nEnd'+'\n');
+	console.log( 'value of i ' + i +'  '+peoplePerA[i] +' ppl with ' + perpersonShlokasDecimal + ' each ' + totalPeople + '--totalPeople' +nEnd+'--nEnd'+'\n');
 	
 	var startShloka = 1;
 	var text = '';
