@@ -138,7 +138,7 @@ for (i = 1; i <= numA; i++) {
 	txtDhyaaanam = assignDhyaanam(peopleForDhyanam, nStart, curatedLines);
 	strCsv = strCsv + '\n';
 	
-	nStart = devoteeCounter;  nEnd = devoteeCounter + peoplePerA[i]-2; devoteeCounter = nEnd; totalPeople = peoplePerA[i];
+	nStart = devoteeCounter;  nEnd = devoteeCounter + peoplePerA[i]-2; devoteeCounter = nEnd; totalPeople = peoplePerA[i]-2;
 	//======================================================-------------------------------------------------------
 	for (let i = 1; i <= numA; i++) {
     console.log(`Checking peoplePerA[${i}]:`, peoplePerA[i]);
@@ -146,7 +146,7 @@ for (i = 1; i <= numA; i++) {
     if (typeof peoplePerA[i] === "undefined") {
         console.error(`ERROR: peoplePerA[${i}] is undefined!`);
     } else {
-        var perpersonShlokasDecimal = mahaMantras / (peoplePerA[i] - 2);
+        var perpersonShlokasDecimal = Math.floor(mahaMantras / (peoplePerA[i] - 2));
         console.log(`Per person shlokas: ${perpersonShlokasDecimal}`);
     }
 }
@@ -159,7 +159,7 @@ for (i = 1; i <= numA; i++) {
 	var counter = nStart;
 	var nPending = 0;
 	var shlokamName = 'Shlokam';
-		
+	
 	for (let i = 1; i <= totalPeople; i++) {
 		nResultant = nPending + perpersonShlokasDecimal;
 		nTotalShlokas = Math.floor(nResultant);
