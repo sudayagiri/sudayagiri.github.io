@@ -351,7 +351,7 @@ function sendInWhatsApp() {
 	else { alert('Please enter 10 digit phone number without +91 prefix.'); }
 	
 }
-function calculateAvarthis(curatedLines) {
+/*function calculateAvarthis(curatedLines) {
 	 console.log( curatedLines.length + 'curatedLines.length ');
     if(curatedLines.length > magicNumber) {
 		numA = Math.round(curatedLines.length / magicNumber);
@@ -405,5 +405,5 @@ function calculateAvarthis(curatedLines) {
 		}
 	 }
  return peoplePerA;
-}
+}*/
 			
