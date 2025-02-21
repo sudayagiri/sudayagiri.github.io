@@ -79,7 +79,34 @@ function allocaterrs(strStyle) {
 	strCsv = strCsv + '\n';
 	
 	nStart = devoteeCounter;  nEnd = devoteeCounter + peoplePerA[i]-2; devoteeCounter = nEnd; totalPeople = peoplePerA[i];
-	txtShlokam = assignShlokas(mahaMantras, nStart, nEnd, curatedLines, 'Shlokam');
+	//======================================================-------------------------------------------------------
+	var perpersonShlokasDecimal = mahaMantras / (peoplePerA[i]-2);
+	//var perpersonShlokasDecimal = 2;
+	console.log( peoplePerA +' ppl with ' + perpersonShlokasDecimal + ' each ');
+	
+	var startShloka = 1;
+	var text = '';
+	var counter = nStart;
+	var nPending = 0;
+	var shlokamName = 'Shlokam';
+		
+	for (let i = 1; i <= totalPeople; i++) {
+		nResultant = nPending + perpersonShlokasDecimal;
+		nTotalShlokas = Math.floor(nResultant);
+		nPending = nResultant - nTotalShlokas;
+		endShlokaNumber = startShloka + nTotalShlokas-1;				   		
+		
+			makeText = fillDahses25(shlokamName + ": " + startShloka + "-" + endShlokaNumber + '-[' + (endShlokaNumber-startShloka+1) + ']')+ curatedLines[counter] + "\n";
+			strCsv = strCsv + shlokamName + ',' + startShloka + ',' + endShlokaNumber + ',' + '-[' +  (endShlokaNumber-startShloka+1) + '],' + curatedLines[counter] + "\n";
+			
+			startShloka = endShlokaNumber + 1;
+			counter++;
+			txtShlokam = txtShlokam + makeText;
+		
+		}
+	
+	//=================================================-------------------------------------------
+	//txtShlokam = assignShlokas(mahaMantras, nStart, nEnd, curatedLines, 'Shlokam');
 	strCsv = strCsv + '\n';
 	}
 
