@@ -56,7 +56,60 @@ function allocaterrs(strStyle) {
 	if(isRemovedNSP) { curatedLines = addNSP(curatedLines); }
 	
 	//==========================================================================================
-	pplPerA = calculateAvarthis(curatedLines);
+	//pplPerA = calculateAvarthis(curatedLines);
+	 console.log( curatedLines.length + 'curatedLines.length ');
+    if(curatedLines.length > magicNumber) {
+		numA = Math.round(curatedLines.length / magicNumber);
+		
+		leftPeople = curatedLines.length % magicNumber; //magicNumber is 21 19 + 2 -> 19*2=38, 1 nyasam, 1 dhyanam
+		if (leftPeople >= 12 && leftPeople <=20) {
+			numA = numA + 1;
+			needmorethan2Shlokas_lastA = 1; //means more than 2 people per person
+		 }
+		 else if (leftPeople <=11 && leftPeople > 0 ){
+			 adjustAvarthiListwithLeftPeople = 1;
+		 }
+		 else {
+			 //no need further allocation, since zero remaining people
+		 }
+		
+		 console.log(numA + '- if case total Avarthis');
+	}
+	else {
+		//total people are <= 21
+		needmorethan2Shlokas_lastA = 1;
+		 leftPeople = curatedLines.length;
+		 numA = 1;
+		console.log(numA + '- else case total Avarthis');
+	     }
+	  
+	 console.log(numA + '-total Avarthis' + leftPeople + '-leftpeople');
+	 var arrayAdjustleftpeopleforAvarti = [0] ;
+	 var prevpplcount = 0; 
+	 for (i=1;i<=numA;i++){
+		if(numA >= 2) {
+		arrayAdjustleftpeopleforAvarti[i] = Math.ceil(((leftPeople-prevpplcount)/(numA-i-1)));
+		}
+		prevpplcount = prevpplcount+arrayAdjustleftpeopleforAvarti[i];
+		
+		if(i==numA) {
+		    if(needmorethan2Shlokas_lastA ==1){
+			  peoplePerA[i] = leftPeople; 
+			  console.log(peoplePerA[i] + 'people for Avarthi' + i);
+		     }
+		}
+        else {
+			if(adjustAvarthiListwithLeftPeople == 1) {
+				peoplePerA[i] = magicNumber + arrayAdjustleftpeopleforAvarti[i];
+                console.log(peoplePerA[i] + 'else-1 people for Avarthi' + i);				
+			}
+			else {
+				peoplePerA[i] = magicNumber;
+				console.log(peoplePerA[i] + 'else-2 people for Avarthi' + i);
+			}
+		}
+	 }
+	//===============================================================
 	//Start Processing
 	var devoteeCounter = 0;
 	var strStartingPrayerPerson = getRandomName(curatedLines);
@@ -80,11 +133,11 @@ function allocaterrs(strStyle) {
 	txtDhyaaanam = assignDhyaanam(peopleForDhyanam, nStart, curatedLines);
 	strCsv = strCsv + '\n';
 	
-	nStart = devoteeCounter;  nEnd = devoteeCounter + pplPerA[i]-2; devoteeCounter = nEnd; totalPeople = pplPerA[i];
+	nStart = devoteeCounter;  nEnd = devoteeCounter + peoplePerA[i]-2; devoteeCounter = nEnd; totalPeople = peoplePerA[i];
 	//======================================================-------------------------------------------------------
-	var perpersonShlokasDecimal = mahaMantras / (pplPerA[i]-2);
+	var perpersonShlokasDecimal = mahaMantras / (peoplePerA[i]-2);
 	//var perpersonShlokasDecimal = 2;
-	console.log( pplPerA[i] +' ppl with ' + perpersonShlokasDecimal + ' each ');
+	console.log( peoplePerA[i] +' ppl with ' + perpersonShlokasDecimal + ' each ');
 	
 	var startShloka = 1;
 	var text = '';
