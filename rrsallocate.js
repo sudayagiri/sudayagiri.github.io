@@ -6,6 +6,7 @@ var phalaShrutiSlokas = 0;
 var avarthi = 1;
 var needmorethan2Shlokas_lastA = 0;
 const peoplePerA = [];
+const pplPerA = [];
 var magicNumber = 21;
 var numA = 0;
 var leftPeople = 0;
@@ -55,7 +56,7 @@ function allocaterrs(strStyle) {
 	if(isRemovedNSP) { curatedLines = addNSP(curatedLines); }
 	
 	//==========================================================================================
-	calculateAvarthis(curatedLines);
+	pplPerA = calculateAvarthis(curatedLines);
 	//Start Processing
 	var devoteeCounter = 0;
 	var strStartingPrayerPerson = getRandomName(curatedLines);
@@ -79,11 +80,11 @@ function allocaterrs(strStyle) {
 	txtDhyaaanam = assignDhyaanam(peopleForDhyanam, nStart, curatedLines);
 	strCsv = strCsv + '\n';
 	
-	nStart = devoteeCounter;  nEnd = devoteeCounter + peoplePerA[i]-2; devoteeCounter = nEnd; totalPeople = peoplePerA[i];
+	nStart = devoteeCounter;  nEnd = devoteeCounter + pplPerA[i]-2; devoteeCounter = nEnd; totalPeople = pplPerA[i];
 	//======================================================-------------------------------------------------------
-	var perpersonShlokasDecimal = mahaMantras / (peoplePerA[i]-2);
+	var perpersonShlokasDecimal = mahaMantras / (pplPerA[i]-2);
 	//var perpersonShlokasDecimal = 2;
-	console.log( peoplePerA[i] +' ppl with ' + perpersonShlokasDecimal + ' each ');
+	console.log( pplPerA[i] +' ppl with ' + perpersonShlokasDecimal + ' each ');
 	
 	var startShloka = 1;
 	var text = '';
@@ -350,5 +351,6 @@ function calculateAvarthis(curatedLines) {
 			}
 		}
 	 }
+ return peoplePerA;
 }
 			
