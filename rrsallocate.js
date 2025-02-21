@@ -5,7 +5,7 @@ var mahaMantras = 38;
 var phalaShrutiSlokas = 0;
 var avarthi = 1;
 var needmorethan2Shlokas_lastA = 0;
-var peoplePerA = [];
+const peoplePerA = [];
 var magicNumber = 21;
 var numA = 0;
 var leftPeople = 0;
@@ -335,18 +335,18 @@ function calculateAvarthis(curatedLines) {
 		
 		if(i==numA) {
 		    if(needmorethan2Shlokas_lastA ==1){
-			  peoplePerA.push(leftPeople); 
-			  console.log(peoplePerA + 'people for Avarthi' + i);
+			  peoplePerA[i] = leftPeople; 
+			  console.log(peoplePerA[i] + 'people for Avarthi' + i);
 		     }
 		}
         else {
 			if(adjustAvarthiListwithLeftPeople == 1) {
-				peoplePerA.push(magicNumber + arrayAdjustleftpeopleforAvarti[i]);
-                console.log(peoplePerA + 'else-1 people for Avarthi' + i);				
+				peoplePerA[i] = magicNumber + arrayAdjustleftpeopleforAvarti[i];
+                console.log(peoplePerA[i] + 'else-1 people for Avarthi' + i);				
 			}
 			else {
-				peoplePerA.push(magicNumber);
-				console.log(peoplePerA + 'else-2 people for Avarthi' + i);
+				peoplePerA[i] = magicNumber;
+				console.log(peoplePerA[i] + 'else-2 people for Avarthi' + i);
 			}
 		}
 	 }
