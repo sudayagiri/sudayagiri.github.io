@@ -123,6 +123,8 @@ function allocaterrs(strStyle) {
 	//strCsv = strCsv + 'Starting Prayer: ,,,,' + strStartingPrayerPerson + '\n' + 'Pledge: ,,,,' + strPledgePerson + '\n\n';
 	strCsv = strCsv + 'Starting Prayer: ,,,,' + strStartingPrayerPerson + '\n\n'; //new line by NSP
 	//===================================================================================================
+console.log(`mahaMantras: ${mahaMantras}`);
+console.log(`numA: ${numA}`);
 for (i = 1; i <= numA; i++) {
     console.log(`peoplePerA[${i}] = ${peoplePerA[i]}`); // Should print valid numbers
 }
