@@ -79,7 +79,7 @@ function allocaterrs(strStyle) {
 	strCsv = strCsv + '\n';
 	
 	nStart = devoteeCounter;  nEnd = devoteeCounter + peoplePerA[i]-2; devoteeCounter = nEnd; totalPeople = peoplePerA[i]-2;
-	txtShlokam = assignShlokas(mahaMantras, nStart, nEnd, curatedLines, 'Shlokam', totalPeople);
+	txtShlokam = assignShlokas(mahaMantras, nStart, nEnd, curatedLines, 'Shlokam');
 	strCsv = strCsv + '\n';
 	}
 
@@ -93,7 +93,7 @@ function allocaterrs(strStyle) {
 	
 }
 
-function assignShlokas(nShlokas, nStart, nEnd, curatedLines, shlokamName, totalPeople ) {
+function assignShlokas(nShlokas, nStart, nEnd, curatedLines, shlokamName) {
 
 	var perpersonShlokasDecimal = nShlokas / totalPeople;
 	//var perpersonShlokasDecimal = 2;
