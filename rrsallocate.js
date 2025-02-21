@@ -78,7 +78,7 @@ function allocaterrs(strStyle) {
 	strCsv = strCsv + '\n';
 	
 	nStart = devoteeCounter;  nEnd = devoteeCounter + peoplePerA[i]-2; devoteeCounter = nEnd;
-	txtShlokam = assignShlokas(mahaMantras, nStart, nEnd, curatedLines, 'Shlokam',peoplePerA[i]);
+	txtShlokam = assignShlokas(mahaMantras, nStart, nEnd, curatedLines, 'Shlokam',peoplePerA[i]-2);
 	strCsv = strCsv + '\n';
 	}
 
@@ -92,12 +92,11 @@ function allocaterrs(strStyle) {
 	
 }
 
-function assignShlokas(nShlokas, nStart, nEnd, curatedLines, shlokamName, peoplePerAvarthi) {
-	
-	var totalPeople = peoplePerAvarthi-2;
-	var perpersonShlokasDecimal = nShlokas / (peoplePerAvarthi-2);
+function assignShlokas(nShlokas, nStart, nEnd, curatedLines, shlokamName, totalPeople ) {
+
+	var perpersonShlokasDecimal = nShlokas / (totalPeople);
 	//var perpersonShlokasDecimal = 2;
-	console.log(peoplePerAvarthi + ' ppl with ' + perpersonShlokasDecimal + ' each ' + peoplePerA[1]+ '    ---1');
+	console.log(totalPeople + ' ppl with ' + perpersonShlokasDecimal + ' each ' + peoplePerA[1]+ '    ---1');
 	
 	var startShloka = 1;
 	var text = '';
@@ -109,8 +108,7 @@ function assignShlokas(nShlokas, nStart, nEnd, curatedLines, shlokamName, people
 		nResultant = nPending + perpersonShlokasDecimal;
 		nTotalShlokas = Math.floor(nResultant);
 		nPending = nResultant - nTotalShlokas;
-		endShlokaNumber = startShloka + nTotalShlokas-1;
-				   		
+		endShlokaNumber = startShloka + nTotalShlokas-1;				   		
 		
 			makeText = fillDahses25(shlokamName + ": " + startShloka + "-" + endShlokaNumber + '-[' + (endShlokaNumber-startShloka+1) + ']')+ curatedLines[counter] + "\n";
 			strCsv = strCsv + shlokamName + ',' + startShloka + ',' + endShlokaNumber + ',' + '-[' +  (endShlokaNumber-startShloka+1) + '],' + curatedLines[counter] + "\n";
@@ -121,8 +119,7 @@ function assignShlokas(nShlokas, nStart, nEnd, curatedLines, shlokamName, people
 		
 		}
 	
-	return text;
-}
+	return text;}
 
 function assignDhyaanam(peopleForDhyanam, nStart, curatedLines) {
 	makeText = fillDahses25("Dhyaanam: 1") + curatedLines[nStart] + "\n";
