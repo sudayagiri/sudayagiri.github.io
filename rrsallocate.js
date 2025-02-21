@@ -78,7 +78,7 @@ function allocaterrs(strStyle) {
 	txtDhyaaanam = assignDhyaanam(peopleForDhyanam, nStart, curatedLines);
 	strCsv = strCsv + '\n';
 	
-	nStart = devoteeCounter;  nEnd = devoteeCounter + peoplePerA[i]-2; devoteeCounter = nEnd; totalPeople = peoplePerA[i]-2;
+	nStart = devoteeCounter;  nEnd = devoteeCounter + peoplePerA[i]-2; devoteeCounter = nEnd; totalPeople = peoplePerA[i];
 	txtShlokam = assignShlokas(mahaMantras, nStart, nEnd, curatedLines, 'Shlokam');
 	strCsv = strCsv + '\n';
 	}
