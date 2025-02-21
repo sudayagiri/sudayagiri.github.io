@@ -152,7 +152,7 @@ for (i = 1; i <= numA; i++) {
 }
 //	var perpersonShlokasDecimal = mahaMantras / (peoplePerA[i]-2);
 	//var perpersonShlokasDecimal = 2;
-	console.log( peoplePerA[i] +' ppl with ' + perpersonShlokasDecimal + ' each ');
+	console.log( peoplePerA[${i}] +' ppl with ' + perpersonShlokasDecimal + ' each ' + totalPeople + '--totalPeople' +nEnd+'--nEnd'+'\n');
 	
 	var startShloka = 1;
 	var text = '';
