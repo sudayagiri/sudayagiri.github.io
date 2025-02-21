@@ -108,6 +108,7 @@ function allocaterrs(strStyle) {
 				console.log(peoplePerA[i] + 'else-2 people for Avarthi' + i);
 			}
 		}
+		console.log("peoplePerA array:", peoplePerA);
 	 }
 	//===============================================================
 	//Start Processing
@@ -122,7 +123,9 @@ function allocaterrs(strStyle) {
 	//strCsv = strCsv + 'Starting Prayer: ,,,,' + strStartingPrayerPerson + '\n' + 'Pledge: ,,,,' + strPledgePerson + '\n\n';
 	strCsv = strCsv + 'Starting Prayer: ,,,,' + strStartingPrayerPerson + '\n\n'; //new line by NSP
 	//===================================================================================================
-
+for (i = 1; i <= numA; i++) {
+    console.log(`peoplePerA[${i}] = ${peoplePerA[i]}`); // Should print valid numbers
+}
 	for (i=1; i<=numA; i++) {
 	
 	nStart = devoteeCounter;  nEnd = devoteeCounter + 1; devoteeCounter = nEnd;
