@@ -341,7 +341,7 @@ function calculateAvarthis(curatedLines) {
 		}
         else {
 			if(adjustAvarthiListwithLeftPeople == 1) {
-				peoplePerA.push(magicNumber + arrayAdjustleftpeopleforAvarti[i)];
+				peoplePerA.push(magicNumber + arrayAdjustleftpeopleforAvarti[i]);
                 console.log(peoplePerA + 'else-1 people for Avarthi' + i);				
 			}
 			else {
