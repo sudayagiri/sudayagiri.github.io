@@ -14,31 +14,21 @@ function allocaterrs(strStyle) {
         return;
     }
     
-    let strCsv = `Batch Number,${batchNumber},,Date,${satsangDate}\n\n`;
-    strCsv += 'Shlokam,Start,End,Count,Devotee Name,Backup Chanter' + '\n\n';
-    
     let objallocation = document.getElementById('allocation'); 
-    let text = '';
     let isRemovedNSP = false;
     
     // Names - remove spaces and new lines
-    let splittedLines = txtNames.split('\n');
-    let curatedLines = [];
-    for (let i = 0; i < splittedLines.length; i++) {
-        if (splittedLines[i].trim() !== "") {
-            curatedLines.push(splittedLines[i].trim());
-        }
-    }
-    if (curatedLines.length === 0) {
+    let splittedLines = txtNames.split('\n').map(name => name.trim()).filter(name => name !== "");
+    if (splittedLines.length === 0) {
         alert('There are no people to allocate!');
         return;
     }
-    if (curatedLines[0].toUpperCase() === 'NSP') { 
-        curatedLines = removeNSP(curatedLines);
+    if (splittedLines[0].toUpperCase() === 'NSP') { 
+        splittedLines = removeNSP(splittedLines);
         isRemovedNSP = true;
     }
     
-    allocateShlokas(curatedLines);
+    allocateShlokas(splittedLines);
 }
 
 function tempSave() {
@@ -65,8 +55,8 @@ function allocateShlokas(names) {
         let selectedNames = names.slice(currentIndex, currentIndex + mahaMantras + 2);
         
         if (selectedNames.length < 3) {
-            alert("Not enough people to allocate a full avarthi!");
-            return;
+            let extraNames = names.slice(10).sort(() => 0.5 - Math.random()).slice(0, 3 - selectedNames.length);
+            selectedNames.push(...extraNames);
         }
         
         outputText += `Nyasa: ------------------${selectedNames[0]}\n`;
@@ -122,7 +112,7 @@ function allocateShlokas(names) {
 function downloadCSV() {
     let csvData = window.localStorage.getItem("csvData");
     if (!csvData) {
-        alert("No CSV data available to download!");
+        alert("No CSV data available to download!!");
         return;
     }
     let blob = new Blob([csvData], { type: 'text/csv' });
