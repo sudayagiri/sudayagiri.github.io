@@ -15,20 +15,15 @@ function allocaterrs(strStyle) {
     }
     
     let objallocation = document.getElementById('allocation'); 
-    let isRemovedNSP = false;
     
     // Names - remove spaces and new lines
-    let splittedLines = txtNames.split('\n').map(name => name.trim()).filter(name => name !== "");
-    if (splittedLines.length === 0) {
+    let names = txtNames.split('\n').map(name => name.trim()).filter(name => name !== "");
+    if (names.length === 0) {
         alert('There are no people to allocate!');
         return;
     }
-    if (splittedLines[0].toUpperCase() === 'NSP') { 
-        splittedLines = removeNSP(splittedLines);
-        isRemovedNSP = true;
-    }
     
-    allocateShlokas(splittedLines);
+    allocateShlokas(names);
 }
 
 function tempSave() {
@@ -49,6 +44,7 @@ function allocateShlokas(names) {
     
     let avarthiCount = 1;
     let currentIndex = 0;
+
     while (currentIndex < names.length) {
         outputText += `\n${avarthiCount}-Avarthi\n`;
         
@@ -66,7 +62,7 @@ function allocateShlokas(names) {
         
         let startShloka = 1;
         let shlokaAllocation = selectedNames.slice(2);
-        
+
         if (shlokaAllocation.length < mahaMantras) {
             let extraNames = names.slice(10).sort(() => 0.5 - Math.random()).slice(0, mahaMantras - shlokaAllocation.length);
             shlokaAllocation.push(...extraNames);
@@ -95,8 +91,8 @@ function allocateShlokas(names) {
                 shlokasPerPerson = Math.min(5, Math.ceil(remainingShlokas / remainingParticipants));
             }
         }
-        
-        currentIndex += selectedNames.length;
+
+        currentIndex += mahaMantras + 2;
         avarthiCount++;
     }
     
@@ -112,7 +108,7 @@ function allocateShlokas(names) {
 function downloadCSV() {
     let csvData = window.localStorage.getItem("csvData");
     if (!csvData) {
-        alert("No CSV data available to download!!");
+        alert("No CSV data available to download!!!");
         return;
     }
     let blob = new Blob([csvData], { type: 'text/csv' });
