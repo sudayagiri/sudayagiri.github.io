@@ -160,7 +160,7 @@ for (i = 1; i <= numA; i++) {
 	var nPending = 0;
 	var shlokamName = 'Shlokam';
 	
-	for (let i = 1; i <= totalPeople; i++) {
+	for (let k = 1; k <= totalPeople; k++) {
 		nResultant = nPending + perpersonShlokasDecimal;
 		nTotalShlokas = Math.floor(nResultant);
 		nPending = nResultant - nTotalShlokas;
