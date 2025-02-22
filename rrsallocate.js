@@ -55,9 +55,9 @@ function allocateShlokas(names) {
             selectedNames.push(...extraNames);
         }
         
-        outputText += `Nyasa: ------------------${selectedNames[0]}\n`;
+        outputText += `\nNyasa: ------------------${selectedNames[0]}\n`;
         outputText += `Dhyaanam: 1--------------${selectedNames[1]}\n\n`;
-        csvContent += `Nyasa,,,${selectedNames[0]}\n\n`;
+        csvContent += `\nNyasa,,,${selectedNames[0]}\n\n`;
         csvContent += `Dhyaanam,,,${selectedNames[1]}\n\n`;
         
         let startShloka = 1;
@@ -114,7 +114,7 @@ function downloadCSV() {
     let blob = new Blob([csvData], { type: 'text/csv' });
     let link = document.createElement('a');
     link.href = URL.createObjectURL(blob);
-    link.download = 'shloka_allocation.csv';
+    link.download = 'RRS_shloka_allocation.csv';
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
