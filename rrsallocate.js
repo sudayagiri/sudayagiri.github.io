@@ -69,7 +69,7 @@ function allocateShlokas(names) {
             return;
         }
         
-        outputText += `Nyasa: ------------------${selectedNames[0]}\n`;
+        outputText += `Nyasa : ------------------${selectedNames[0]}\n`;
         outputText += `Dhyaanam: 1--------------${selectedNames[1]}\n\n`;
         csvContent += `Nyasa,,,${selectedNames[0]}\n\n`;
         csvContent += `Dhyaanam,,,${selectedNames[1]}\n\n`;
