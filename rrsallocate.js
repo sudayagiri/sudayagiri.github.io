@@ -97,6 +97,8 @@ function allocaterrs(strStyle) {
 			  peoplePerA[p] = leftPeople; 
 			  console.log(peoplePerA[p] + 'people for Avarthi' + i);
 		     }
+			 if(adjustAvarthiListwithLeftPeople==1){
+				 peoplePerA[p]=magicNumber+leftpeople;
 		}
         else {
 			if(adjustAvarthiListwithLeftPeople == 1) {
