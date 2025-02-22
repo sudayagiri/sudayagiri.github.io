@@ -15,15 +15,21 @@ function allocaterrs(strStyle) {
     }
     
     let objallocation = document.getElementById('allocation'); 
+    let isRemovedNSP = false;
     
     // Names - remove spaces and new lines
-    let names = txtNames.split('\n').map(name => name.trim()).filter(name => name !== "");
-    if (names.length === 0) {
+    let splittedLines = txtNames.split('\n').map(name => name.trim()).filter(name => name !== "");
+    if (splittedLines.length === 0) {
         alert('There are no people to allocate!');
         return;
     }
     
-    allocateShlokas(names);
+    if (splittedLines[0].toUpperCase() === 'NSP') { 
+        splittedLines = removeNSP(splittedLines);
+        isRemovedNSP = true;
+    }
+    
+    allocateShlokas(splittedLines);
 }
 
 function tempSave() {
@@ -47,46 +53,48 @@ function allocateShlokas(names) {
 
     while (currentIndex < names.length) {
         outputText += `\n${avarthiCount}-Avarthi\n`;
-        
+
         let selectedNames = names.slice(currentIndex, currentIndex + mahaMantras + 2);
-        
-        if (selectedNames.length < 3) {
+
+        // Ensure at least 3 names are available for Nyasam, Dhyanam, and Shlokam allocation
+        while (selectedNames.length < 3) {
             let extraNames = names.slice(10).sort(() => 0.5 - Math.random()).slice(0, 3 - selectedNames.length);
             selectedNames.push(...extraNames);
         }
-        
-        outputText += `\nNyasa: ------------------${selectedNames[0]}\n`;
+
+        outputText += `Nyasa: ------------------${selectedNames[0]}\n`;
         outputText += `Dhyaanam: 1--------------${selectedNames[1]}\n\n`;
-        csvContent += `\nNyasa,,,${selectedNames[0]}\n\n`;
+        csvContent += `Nyasa,,,${selectedNames[0]}\n\n`;
         csvContent += `Dhyaanam,,,${selectedNames[1]}\n\n`;
-        
+
         let startShloka = 1;
         let shlokaAllocation = selectedNames.slice(2);
 
-        if (shlokaAllocation.length < mahaMantras) {
+        // 🔹 **Fix: Fill missing slots if fewer than 38 shloka participants**
+        while (shlokaAllocation.length < mahaMantras) {
             let extraNames = names.slice(10).sort(() => 0.5 - Math.random()).slice(0, mahaMantras - shlokaAllocation.length);
             shlokaAllocation.push(...extraNames);
         }
-        
+
         let remainingShlokas = mahaMantras;
         let remainingParticipants = shlokaAllocation.length;
         let shlokasPerPerson = Math.min(5, Math.ceil(remainingShlokas / remainingParticipants));
-        
+
         console.log(`Processing Avarthi ${avarthiCount}, Total Participants: ${shlokaAllocation.length}`);
-        
+
         for (let i = 0; i < shlokaAllocation.length; i++) {
             let endShloka = startShloka + shlokasPerPerson - 1;
             if (endShloka > mahaMantras) endShloka = mahaMantras;
-            
+
             outputText += `Shlokam: ${startShloka}-${endShloka}-[${endShloka - startShloka + 1}]---------${shlokaAllocation[i]}\n`;
             csvContent += `Shlokam, ${startShloka}, ${endShloka}, ${endShloka - startShloka + 1}, ${shlokaAllocation[i]}\n`;
-            
+
             startShloka = endShloka + 1;
             remainingShlokas -= (endShloka - startShloka + 1);
             remainingParticipants--;
-            
+
             if (startShloka > mahaMantras) break;
-            
+
             if (remainingParticipants > 0) {
                 shlokasPerPerson = Math.min(5, Math.ceil(remainingShlokas / remainingParticipants));
             }
@@ -95,11 +103,11 @@ function allocateShlokas(names) {
         currentIndex += mahaMantras + 2;
         avarthiCount++;
     }
-    
+
     let endingPrayerPerson = names[Math.floor(Math.random() * names.length)];
     outputText += `\nEnding Prayer: ${endingPrayerPerson}\n`;
     csvContent += `\nEnding Prayer,,,${endingPrayerPerson}\n`;
-    
+
     console.log(outputText);
     document.getElementById('allocation').value = outputText;
     window.localStorage.setItem("csvData", csvContent);
@@ -108,13 +116,13 @@ function allocateShlokas(names) {
 function downloadCSV() {
     let csvData = window.localStorage.getItem("csvData");
     if (!csvData) {
-        alert("No CSV data available to download!!!");
+        alert("No CSV data available to download!!");
         return;
     }
     let blob = new Blob([csvData], { type: 'text/csv' });
     let link = document.createElement('a');
     link.href = URL.createObjectURL(blob);
-    link.download = 'RRS_shloka_allocation.csv';
+    link.download = 'shloka_allocation.csv';
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
