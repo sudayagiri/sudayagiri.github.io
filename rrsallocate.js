@@ -14,7 +14,7 @@ function allocaterrs(strStyle) {
         return;
     }
     
-    let strCsv = 'Batch Number,' + batchNumber + ',,Date,' + satsangDate + '\n\n';
+    let strCsv = `Batch Number,${batchNumber},,Date,${satsangDate}\n\n`;
     strCsv += 'Shlokam,Start,End,Count,Devotee Name,Backup Chanter' + '\n\n';
     
     let objallocation = document.getElementById('allocation'); 
@@ -41,20 +41,15 @@ function allocaterrs(strStyle) {
     allocateShlokas(curatedLines);
 }
 
-function tempSave() {
-    window.localStorage.setItem("nsp-names", document.getElementById('names').value);
-    window.localStorage.setItem("nsp-batchnumber", document.getElementById('batchnumber').value);
-    window.localStorage.setItem("nsp-satsangdate", document.getElementById('satsangdate').value);
-}
-
 function allocateShlokas(names) {
     const mahaMantras = 38;
-    let csvContent = "Shlokam, Start, End, Count, Devotee Name\n";
+    let csvContent = `Batch Number,,${window.localStorage.getItem("nsp-batchnumber")},,Date,${window.localStorage.getItem("nsp-satsangdate")}\n\n`;
+    csvContent += "Shlokam, Start, End, Count, Devotee Name\n\n";
     let outputText = "*Om Namo Narayana* \n--------------------------------------------\n";
 
     let batchNumber = window.localStorage.getItem("nsp-batchnumber");
     let satsangDate = window.localStorage.getItem("nsp-satsangdate");
-    outputText += `Batch Number: ${batchNumber}  [Satsang Date: ${satsangDate}]\n--------------------------------------------\n`;
+    outputText += `Batch Number: ${batchNumber}  [Satsang Date: ${satsangDate}]\n--------------------------------------------\n\n`;
     
     let avarthiCount = 1;
     let currentIndex = 0;
@@ -68,30 +63,30 @@ function allocateShlokas(names) {
         }
         
         outputText += `Nyasa: ------------------${selectedNames[0]}\n`;
-        outputText += `Dhyaanam: 1--------------${selectedNames[1]}\n`;
-        csvContent += `Nyasa,,,${selectedNames[0]}\n`;
-        csvContent += `Dhyaanam,,,${selectedNames[1]}\n`;
+        outputText += `Dhyaanam: 1--------------${selectedNames[1]}\n\n`;
+        csvContent += `Nyasa,,,${selectedNames[0]}\n\n`;
+        csvContent += `Dhyaanam,,,${selectedNames[1]}\n\n`;
         
         let startShloka = 1;
         let shlokaAllocation = selectedNames.slice(2);
-        let shlokasPerPerson = Math.floor(mahaMantras / shlokaAllocation.length);
-        let remainingShlokas = mahaMantras % shlokaAllocation.length;
+        let shlokasPerPerson = Math.min(5, Math.ceil(mahaMantras / shlokaAllocation.length));
         
         for (let i = 0; i < shlokaAllocation.length; i++) {
-            let extraShloka = remainingShlokas > 0 ? 1 : 0;
-            let endShloka = startShloka + shlokasPerPerson + extraShloka - 1;
+            let endShloka = startShloka + shlokasPerPerson - 1;
             if (endShloka > mahaMantras) endShloka = mahaMantras;
             outputText += `Shlokam: ${startShloka}-${endShloka}-[${endShloka - startShloka + 1}]---------${shlokaAllocation[i]}\n`;
             csvContent += `Shlokam, ${startShloka}, ${endShloka}, ${endShloka - startShloka + 1}, ${shlokaAllocation[i]}\n`;
             startShloka = endShloka + 1;
-            if (remainingShlokas > 0) remainingShlokas--;
+            if (startShloka > mahaMantras) break;
         }
         
-        avarthiCount++;
         currentIndex += selectedNames.length;
+        avarthiCount++;
     }
 
-    outputText += `\nEnding Prayer: ${names[Math.floor(Math.random() * names.length)]}\n`;
+    let endingPrayerPerson = names[Math.floor(Math.random() * names.length)];
+    outputText += `\nEnding Prayer: ${endingPrayerPerson}\n`;
+    csvContent += `\nEnding Prayer,,,${endingPrayerPerson}\n`;
     
     console.log(outputText);
     document.getElementById('allocation').value = outputText;
