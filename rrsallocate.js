@@ -61,7 +61,7 @@ function allocateShlokas(names) {
     while (currentIndex < names.length) {
         outputText += `\n${avarthiCount}-Avarthi\n`;
         
-        let selectedNames = names.slice(currentIndex);
+        let selectedNames = names.slice(currentIndex, currentIndex + mahaMantras + 2);
         if (selectedNames.length < 3) {
             alert("Not enough people to allocate a full avarthi!");
             return;
