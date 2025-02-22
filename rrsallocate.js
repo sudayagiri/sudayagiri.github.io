@@ -4,14 +4,6 @@ var purvanghamSlokas = 0;
 var mahaMantras = 38;
 var phalaShrutiSlokas = 0;
 var avarthi = 1;
-var needmorethan2Shlokas_lastA = 0;
-var peoplePerA = [];
-var pplPerA = [];
-var magicNumber = 21;
-var numA = 0;
-var leftPeople = 0;
-var totalPeople = 0;
-var txtShlokam = '';
 
 function allocaterrs(strStyle) {
 	//Save all values
@@ -27,9 +19,9 @@ function allocaterrs(strStyle) {
 	//Names - remove spaces and new lines
 	var splittedLines = txtNames.split('\n');
 	var curatedLines = [];
-	for (let n = 0; n < splittedLines.length; n++) {
-		if (splittedLines[n].trim()  != "") {
-			curatedLines.push(splittedLines[n].trim());
+	for (let i = 0; i < splittedLines.length; i++) {
+		if (splittedLines[i].trim()  != "") {
+			curatedLines.push(splittedLines[i].trim());
 		}
 	}
 	if (curatedLines.length == 0) {
@@ -42,96 +34,45 @@ function allocaterrs(strStyle) {
 	}
 	
 	//Randomize / Making big / Rolling
-	console.log(strStyle+'curated lines '+ curatedLines);
+	console.log(strStyle);
 	if(strStyle == 'random') shuffle(curatedLines);
 	if(strStyle == 'roll') {
 		if (curatedLinesRolled.length == 0) { console.log('no rolled'); rollNames(curatedLines, true); }
 		else { console.log(curatedLinesRolled); rollNames(curatedLinesRolled, true); curatedLines = Array.from(curatedLinesRolled); }
 	}	
-	//if (curatedLines.length < 20) {
-	//	curatedLines = makeItTwenty(curatedLines);
-	//	peopleForDhyanam = 1;
-	//} else 
+	if (curatedLines.length < 20) {
+		curatedLines = makeItTwenty(curatedLines);
 		peopleForDhyanam = 1;
+	} else peopleForDhyanam = 1;
 	if(isRemovedNSP) { curatedLines = addNSP(curatedLines); }
 	
 	//==========================================================================================
-	//pplPerA = calculateAvarthis(curatedLines);
-	 console.log( curatedLines.length + 'curatedLines.length ');
-    if(curatedLines.length > magicNumber) {
-		numA = Math.round(curatedLines.length / magicNumber);
-		
-		leftPeople = curatedLines.length % magicNumber; //magicNumber is 21 19 + 2 -> 19*2=38, 1 nyasam, 1 dhyanam
-		if (leftPeople >= 12 && leftPeople <=20) {
-			numA = numA + 1;
-			needmorethan2Shlokas_lastA = 1; //means more than 2 people per person
-		 }
-		 else if (leftPeople <=11 && leftPeople > 0 ){
-			 adjustAvarthiListwithLeftPeople = 1;
-		 }
-		 else {
-			 //no need further allocation, since zero remaining people
-		 }
-		
-		 console.log(numA + '- if case total Avarthis');
-	}
-	else {
-		//total people are <= 21
-		needmorethan2Shlokas_lastA = 1;
-		 leftPeople = curatedLines.length;
-		 numA = 1;
-		console.log(numA + '- else case total Avarthis');
-	     }
-	  
-	 console.log(numA + '-total Avarthis' + leftPeople + '-leftpeople');
-	 var arrayAdjustleftpeopleforAvarti = [0] ;
-	 var prevpplcount = 0; 
-	 for (p=1;p<=numA;p++){
-		if(numA >= 2) {
-		arrayAdjustleftpeopleforAvarti[p] = Math.ceil(((leftPeople-prevpplcount)/(numA-p-1)));
-		}
-		prevpplcount = prevpplcount+arrayAdjustleftpeopleforAvarti[p];
-		
-		if(p==numA) {
-		    if(needmorethan2Shlokas_lastA ==1){
-			  peoplePerA[p] = leftPeople; 
-			  console.log(peoplePerA[p] + 'people for Avarthi' + i);
-		     }
-			 if(adjustAvarthiListwithLeftPeople==1){
-				 peoplePerA[p]=magicNumber+leftPeople;
-			 }
-		}
-        else {
-			if(adjustAvarthiListwithLeftPeople == 1) {
-				peoplePerA[p] = magicNumber + arrayAdjustleftpeopleforAvarti[p];
-                console.log(peoplePerA[p] + 'else-1 people for Avarthi' + p);				
-			}
-			else {
-				peoplePerA[p] = magicNumber;
-				console.log(peoplePerA[p] + 'else-2 people for Avarthi' + p);
-			}
-		}
-		console.log("peoplePerA array:", peoplePerA);
-	 }
-	//===============================================================
+	
 	//Start Processing
 	var devoteeCounter = 0;
+	
+	var total = purvanghamSlokas + mahaMantras + phalaShrutiSlokas;
+	var totalDevotees = (curatedLines.length - 1 - peopleForDhyanam);
+	var perpersonApprox = Math.round(total / totalDevotees);
+	console.log(perpersonApprox + ' per person approx.');
+	
+	var peopleForPoorvaangam = 0;
+	var peopleForPhalashruti = 0;
+	peopleForShlokas = totalDevotees - (peopleForPhalashruti + peopleForPoorvaangam)
+	
 	var strStartingPrayerPerson = getRandomName(curatedLines);
-
+	//var strPledgePerson = getRandomName(curatedLines);
 	
 	txtOmNamo = '*Om Namo Narayana* \n';
 	txtDashes = '--------------------------------------------\n';
 	txtBatchDate = 'Batch Number: ' + window.localStorage.getItem("nsp-batchnumber") + '  [Satsang Date: ' + window.localStorage.getItem("nsp-satsangdate") + ']\n';
-	txtPrayer = 'Starting Prayer: ' + strStartingPrayerPerson + '\n\n';
+	txtPrayer = 'Starting Prayer:  ,,,, ' + strStartingPrayerPerson + '\n\n';
 	//strCsv = strCsv + 'Starting Prayer: ,,,,' + strStartingPrayerPerson + '\n' + 'Pledge: ,,,,' + strPledgePerson + '\n\n';
 	strCsv = strCsv + 'Starting Prayer: ,,,,' + strStartingPrayerPerson + '\n\n'; //new line by NSP
 	//===================================================================================================
-console.log(`mahaMantras: ${mahaMantras}`);
-console.log(`numA: ${numA}`);
-for (m = 1; m <= numA; m++) {
-    console.log(`peoplePerA[${m}] = ${peoplePerA[m]}`); // Should print valid numbers
-}
-	for (i=1; i<=numA; i++) {
+//	nStart = devoteeCounter;  nEnd = devoteeCounter + peopleForPoorvaangam; devoteeCounter = nEnd;
+//	txtPoorvangam = assignShlokas(purvanghamSlokas, nStart, nEnd, curatedLines, 'Purvangam');
+//	strCsv = strCsv + '\n'; 
 	
 	nStart = devoteeCounter;  nEnd = devoteeCounter + 1; devoteeCounter = nEnd;
 	txtNyasaa = fillDahses25("Nyasa: ") + curatedLines[nStart] + '\n';
@@ -141,92 +82,92 @@ for (m = 1; m <= numA; m++) {
 	txtDhyaaanam = assignDhyaanam(peopleForDhyanam, nStart, curatedLines);
 	strCsv = strCsv + '\n';
 	
-	nStart = devoteeCounter;  nEnd = devoteeCounter + peoplePerA[i]-2; devoteeCounter = nEnd; totalPeople = peoplePerA[i]-2;
-	//======================================================-------------------------------------------------------
-	for (let j = 1; j <= numA; j++) {
-    console.log(`Checking peoplePerA[${j}]:`, peoplePerA[j]);
-
-    if (typeof peoplePerA[j] === "undefined") {
-        console.error(`ERROR: peoplePerA[${j}] is undefined!`);
-    } else {
-        var perpersonShlokasDecimal = Math.floor(mahaMantras / (peoplePerA[j] - 2));
-        console.log(`Per person shlokas: ${perpersonShlokasDecimal}`);
-    }
-   }
-//	var perpersonShlokasDecimal = mahaMantras / (peoplePerA[i]-2);
-	//var perpersonShlokasDecimal = 2;
-	console.log( 'value of i ' + i +'  '+peoplePerA[i] +' ppl with ' + perpersonShlokasDecimal + ' each ' + totalPeople + '--totalPeople' +nEnd+'--nEnd'+'\n');
-	
-	var startShloka = 1;
-	var text = '';
-	var counter = nStart;
-	var nPending = 0;
-	var shlokamName = 'Shlokam';
-	
-	for (let k = 1; k <= totalPeople; k++) {
-		nResultant = nPending + perpersonShlokasDecimal;
-		nTotalShlokas = Math.floor(nResultant);
-		nPending = nResultant - nTotalShlokas;
-		endShlokaNumber = startShloka + nTotalShlokas-1;				   		
-		
-			makeText = fillDahses25(shlokamName + ": " + startShloka + "-" + endShlokaNumber + '-[' + (endShlokaNumber-startShloka+1) + ']')+ curatedLines[counter] + "\n";
-			strCsv = strCsv + shlokamName + ',' + startShloka + ',' + endShlokaNumber + ',' + '-[' +  (endShlokaNumber-startShloka+1) + '],' + curatedLines[counter] + "\n";
-			
-			startShloka = endShlokaNumber + 1;
-			counter++;
-			txtShlokam = txtShlokam + makeText;
-		
-		}
-	
-	//=================================================-------------------------------------------
-	//txtShlokam = assignShlokas(mahaMantras, nStart, nEnd, curatedLines, 'Shlokam');
+	nStart = devoteeCounter;  nEnd = devoteeCounter + peopleForShlokas; devoteeCounter = nEnd;
+	txtShlokam = assignShlokas(mahaMantras, nStart, nEnd, curatedLines, 'Shlokam');
 	strCsv = strCsv + '\n';
-	}
-
+	
+//	nStart = devoteeCounter;  nEnd = devoteeCounter + peopleForPhalashruti; devoteeCounter = nEnd;
+//	txtPhalashruti = assignShlokas(phalaShrutiSlokas, nStart, nEnd, curatedLines, 'Phalashruti');
+//	strCsv = strCsv + '\n';
+	
 	//===================================================================================================
 	var strEndingPrayerPerson = getRandomName(curatedLines);
 	txtEndingPrayer = 'Ending Prayer: ' + strEndingPrayerPerson + '\n';
 	strCsv = strCsv + 'Ending Prayer: ,,,,' + strEndingPrayerPerson + '\n';
 	
-	objallocation.value = txtOmNamo + txtDashes + txtBatchDate + txtDashes + txtPrayer + '\n' + txtNyasaa + '\n' + txtDhyaaanam + '\n' + txtShlokam  + '\n' + txtEndingPrayer;
-	
-	
+	if(strStyle != 'shloka') {
+	//	objallocation.value = txtOmNamo + txtDashes + txtBatchDate + txtDashes + txtPledgePrayer + txtPoorvangam + '\n' + txtNyasaa + '\n' + txtDhyaaanam + '\n' + txtShlokam + '\n' + txtPhalashruti + '\n' + txtEndingPrayer;
+	//	objallocation.value = txtOmNamo + txtDashes + txtBatchDate + txtDashes +  txtPoorvangam + '\n' + txtNyasaa + '\n' + txtDhyaaanam + '\n' + txtShlokam + '\n' + txtPhalashruti + '\n' + txtEndingPrayer;
+	    objallocation.value = txtOmNamo + txtDashes + txtBatchDate + txtDashes + txtPrayer + '\n' +txtNyasaa + '\n' + txtDhyaaanam + '\n' + txtShlokam  + '\n' + txtEndingPrayer;
+	} else {
+		devoteeCounter = 0;
+		nStart = devoteeCounter;
+		console.log(curatedLines.length);
+		nEnd = devoteeCounter + (curatedLines.length - 1);
+		console.log('me calling assign' + nStart + '--' + nEnd);
+		txtShlokam = assignShlokas(mahaMantras, nStart, nEnd, curatedLines, 'Shlokam');
+		objallocation.value = txtOmNamo + txtDashes + txtBatchDate + txtDashes + txtShlokam + '\n';
+	}
 }
-/*
-function assignShlokas(nShlokas, nStart, nEnd, curatedLines, shlokamName) {
 
-	var perpersonShlokasDecimal = nShlokas / totalPeople;
-	//var perpersonShlokasDecimal = 2;
-	console.log(totalPeople + ' ppl with ' + perpersonShlokasDecimal + ' each ' + peoplePerA[1]+ '    ---1');
+function assignShlokas(nShlokas, nStart, nEnd, curatedLines, shlokamName) {
 	
+	var totalPeople = nEnd - nStart;
+	//var perpersonShlokasDecimal = nShlokas / totalPeople
+	var perpersonShlokasDecimal = 2;
+	console.log(totalPeople + ' ppl with ' + perpersonShlokasDecimal + ' each');
+	var navarthi = 1; //38/2 per member = 19 minimum members
 	var startShloka = 1;
 	var text = '';
 	var counter = nStart;
 	var nPending = 0;
-	
+	text = text + navarthi+ '--Avarthi' + "\n"; 
 		
 	for (let i = 1; i <= totalPeople; i++) {
 		nResultant = nPending + perpersonShlokasDecimal;
 		nTotalShlokas = Math.floor(nResultant);
 		nPending = nResultant - nTotalShlokas;
-		endShlokaNumber = startShloka + nTotalShlokas-1;				   		
-		
+		endShlokaNumber = startShloka + nTotalShlokas-1;
+		if(endShlokaNumber > mahaMantras)
+			endShlokaNumber = mahaMantras;
+		   		
+		if (i != totalPeople ) {
 			makeText = fillDahses25(shlokamName + ": " + startShloka + "-" + endShlokaNumber + '-[' + (endShlokaNumber-startShloka+1) + ']')+ curatedLines[counter] + "\n";
 			strCsv = strCsv + shlokamName + ',' + startShloka + ',' + endShlokaNumber + ',' + '-[' +  (endShlokaNumber-startShloka+1) + '],' + curatedLines[counter] + "\n";
-			
+			if(endShlokaNumber == mahaMantras) {
+				endShlokaNumber = 0;
+			   	navarthi = navarthi + 1;
+				makeText = makeText + navarthi+ '-Avarthi' + "\n";
+				if(totalPeople - counter < 19){
+					perpersonShlokasDecimal = 38/(totalPeople-counter+1);
+				}
+				}
 			startShloka = endShlokaNumber + 1;
 			counter++;
 			text = text + makeText;
-		
+		} else {
+			makeText = fillDahses25(shlokamName + ": " + startShloka + "-" + nShlokas + '-[' + (nShlokas-startShloka+1) + ']' )+ curatedLines[counter] + "\n";
+			strCsv = strCsv + shlokamName + ',' + startShloka + ',' + nShlokas + ',' + '-[' +  (nShlokas-startShloka+1) + '],' + curatedLines[counter] + "\n";
+			text = text + makeText;
 		}
-	
-	return text;}
-	*/
+	}
+	return text;
+}
 
 function assignDhyaanam(peopleForDhyanam, nStart, curatedLines) {
 	makeText = fillDahses25("Dhyaanam: 1") + curatedLines[nStart] + "\n";
 	strCsv = strCsv + 'Dhyaanam' + ',1,' + curatedLines[nStart] + "\n";
 	
+/*	if(peopleForDhyanam == 2) {
+		makeText = makeText + fillDahses25("Dhyaanam: 4-8") + curatedLines[nStart+1] + "\n";
+		strCsv = strCsv + 'Dhyaanam' + ',4,8,,' + curatedLines[nStart+1] + "\n";
+	} else {
+		makeText = makeText + fillDahses25("Dhyaanam: 4-5") + curatedLines[nStart+1] + "\n";
+		strCsv = strCsv + 'Dhyaanam' + ',4,5,,' + curatedLines[nStart+1] + "\n";
+		
+		makeText = makeText + fillDahses25("Dhyaanam: 6-8") + curatedLines[nStart+2] + "\n";
+		strCsv = strCsv + 'Dhyaanam' + ',6,8,,' + curatedLines[nStart+2] + "\n";
+	}*/
 	return makeText;
 }
 
@@ -369,59 +310,3 @@ function sendInWhatsApp() {
 	else { alert('Please enter 10 digit phone number without +91 prefix.'); }
 	
 }
-/*function calculateAvarthis(curatedLines) {
-	 console.log( curatedLines.length + 'curatedLines.length ');
-    if(curatedLines.length > magicNumber) {
-		numA = Math.round(curatedLines.length / magicNumber);
-		
-		leftPeople = curatedLines.length % magicNumber; //magicNumber is 21 19 + 2 -> 19*2=38, 1 nyasam, 1 dhyanam
-		if (leftPeople >= 12 && leftPeople <=20) {
-			numA = numA + 1;
-			needmorethan2Shlokas_lastA = 1; //means more than 2 people per person
-		 }
-		 else if (leftPeople <=11 && leftPeople > 0 ){
-			 adjustAvarthiListwithLeftPeople = 1;
-		 }
-		 else {
-			 //no need further allocation, since zero remaining people
-		 }
-		
-		 console.log(numA + '- if case total Avarthis');
-	}
-	else {
-		//total people are <= 21
-		needmorethan2Shlokas_lastA = 1;
-		 leftPeople = curatedLines.length;
-		 numA = 1;
-		console.log(numA + '- else case total Avarthis');
-	     }
-	  
-	 console.log(numA + '-total Avarthis' + leftPeople + '-leftpeople');
-	 var arrayAdjustleftpeopleforAvarti = [0] ;
-	 var prevpplcount = 0; 
-	 for (i=1;i<=numA;i++){
-		if(numA >= 2) {
-		arrayAdjustleftpeopleforAvarti[i] = Math.ceil(((leftPeople-prevpplcount)/(numA-i-1)));
-		}
-		prevpplcount = prevpplcount+arrayAdjustleftpeopleforAvarti[i];
-		
-		if(i==numA) {
-		    if(needmorethan2Shlokas_lastA ==1){
-			  peoplePerA[i] = leftPeople; 
-			  console.log(peoplePerA[i] + 'people for Avarthi' + i);
-		     }
-		}
-        else {
-			if(adjustAvarthiListwithLeftPeople == 1) {
-				peoplePerA[i] = magicNumber + arrayAdjustleftpeopleforAvarti[i];
-                console.log(peoplePerA[i] + 'else-1 people for Avarthi' + i);				
-			}
-			else {
-				peoplePerA[i] = magicNumber;
-				console.log(peoplePerA[i] + 'else-2 people for Avarthi' + i);
-			}
-		}
-	 }
- return peoplePerA;
-}*/
-			
