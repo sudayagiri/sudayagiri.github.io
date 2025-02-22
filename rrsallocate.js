@@ -27,9 +27,9 @@ function allocaterrs(strStyle) {
 	//Names - remove spaces and new lines
 	var splittedLines = txtNames.split('\n');
 	var curatedLines = [];
-	for (let i = 0; i < splittedLines.length; i++) {
-		if (splittedLines[i].trim()  != "") {
-			curatedLines.push(splittedLines[i].trim());
+	for (let n = 0; n < splittedLines.length; n++) {
+		if (splittedLines[n].trim()  != "") {
+			curatedLines.push(splittedLines[n].trim());
 		}
 	}
 	if (curatedLines.length == 0) {
@@ -86,26 +86,26 @@ function allocaterrs(strStyle) {
 	 console.log(numA + '-total Avarthis' + leftPeople + '-leftpeople');
 	 var arrayAdjustleftpeopleforAvarti = [0] ;
 	 var prevpplcount = 0; 
-	 for (i=1;i<=numA;i++){
+	 for (p=1;p<=numA;p++){
 		if(numA >= 2) {
-		arrayAdjustleftpeopleforAvarti[i] = Math.ceil(((leftPeople-prevpplcount)/(numA-i-1)));
+		arrayAdjustleftpeopleforAvarti[p] = Math.ceil(((leftPeople-prevpplcount)/(numA-p-1)));
 		}
-		prevpplcount = prevpplcount+arrayAdjustleftpeopleforAvarti[i];
+		prevpplcount = prevpplcount+arrayAdjustleftpeopleforAvarti[p];
 		
 		if(i==numA) {
 		    if(needmorethan2Shlokas_lastA ==1){
-			  peoplePerA[i] = leftPeople; 
-			  console.log(peoplePerA[i] + 'people for Avarthi' + i);
+			  peoplePerA[p] = leftPeople; 
+			  console.log(peoplePerA[p] + 'people for Avarthi' + i);
 		     }
 		}
         else {
 			if(adjustAvarthiListwithLeftPeople == 1) {
-				peoplePerA[i] = magicNumber + arrayAdjustleftpeopleforAvarti[i];
-                console.log(peoplePerA[i] + 'else-1 people for Avarthi' + i);				
+				peoplePerA[p] = magicNumber + arrayAdjustleftpeopleforAvarti[p];
+                console.log(peoplePerA[p] + 'else-1 people for Avarthi' + p);				
 			}
 			else {
-				peoplePerA[i] = magicNumber;
-				console.log(peoplePerA[i] + 'else-2 people for Avarthi' + i);
+				peoplePerA[p] = magicNumber;
+				console.log(peoplePerA[p] + 'else-2 people for Avarthi' + p);
 			}
 		}
 		console.log("peoplePerA array:", peoplePerA);
@@ -125,8 +125,8 @@ function allocaterrs(strStyle) {
 	//===================================================================================================
 console.log(`mahaMantras: ${mahaMantras}`);
 console.log(`numA: ${numA}`);
-for (i = 1; i <= numA; i++) {
-    console.log(`peoplePerA[${i}] = ${peoplePerA[i]}`); // Should print valid numbers
+for (m = 1; m <= numA; m++) {
+    console.log(`peoplePerA[${m}] = ${peoplePerA[m]}`); // Should print valid numbers
 }
 	for (i=1; i<=numA; i++) {
 	
