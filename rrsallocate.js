@@ -92,7 +92,7 @@ function allocaterrs(strStyle) {
 		}
 		prevpplcount = prevpplcount+arrayAdjustleftpeopleforAvarti[p];
 		
-		if(i==numA) {
+		if(p==numA) {
 		    if(needmorethan2Shlokas_lastA ==1){
 			  peoplePerA[p] = leftPeople; 
 			  console.log(peoplePerA[p] + 'people for Avarthi' + i);
