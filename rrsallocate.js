@@ -33,9 +33,15 @@ function allocaterrs(strStyle) {
     allocateShlokas(curatedLines);
 }
 
+function tempSave() {
+    window.localStorage.setItem("nsp-names", document.getElementById('names').value);
+    window.localStorage.setItem("nsp-batchnumber", document.getElementById('batchnumber').value);
+    window.localStorage.setItem("nsp-satsangdate", document.getElementById('satsangdate').value);
+}
+
 function allocateShlokas(names) {
-    const mahaMantras = 38; // Total shlokas per avarthi
-    const peoplePerAvarthi = 20; // Number of people in one complete set (Nyasam + Dhyanam + 38 Shlokas)
+    const mahaMantras = 38;
+    const peoplePerAvarthi = 20;
     let csvContent = "Shlokam, Start, End, Count, Devotee Name\n";
     let outputText = "*Om Namo Narayana* \n--------------------------------------------\n";
 
@@ -74,14 +80,13 @@ function allocateShlokas(names) {
         currentIndex += peoplePerAvarthi;
     }
 
-    // Add ending prayer
     outputText += `\nEnding Prayer: ${names[Math.floor(Math.random() * names.length)]}\n`;
     
     console.log(outputText);
+    document.getElementById('allocation').value = outputText;
     downloadCSV(csvContent);
 }
 
-// Function to download CSV file
 function downloadCSV(csvData) {
     let blob = new Blob([csvData], { type: 'text/csv' });
     let link = document.createElement('a');
