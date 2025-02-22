@@ -1,7 +1,7 @@
 // JavaScript to allocate Nyasam, Dhyanam, and Shlokas for a satsang event
-// Reads a list of names and assigns them in full Avarthi sets
+// Ensures all names are considered and shlokas are distributed evenly
 
-function allocaterrs(strStyle) {
+function allocaterrs() {
     // Save all values
     tempSave();
     
@@ -14,22 +14,14 @@ function allocaterrs(strStyle) {
         return;
     }
     
-    let objallocation = document.getElementById('allocation'); 
-    let isRemovedNSP = false;
-    
     // Names - remove spaces and new lines
-    let splittedLines = txtNames.split('\n').map(name => name.trim()).filter(name => name !== "");
-    if (splittedLines.length === 0) {
+    let names = txtNames.split('\n').map(name => name.trim()).filter(name => name !== "");
+    if (names.length === 0) {
         alert('There are no people to allocate!');
         return;
     }
     
-    if (splittedLines[0].toUpperCase() === 'NSP') { 
-        splittedLines = removeNSP(splittedLines);
-        isRemovedNSP = true;
-    }
-    
-    allocateShlokas(splittedLines);
+    allocateShlokas(names);
 }
 
 function tempSave() {
@@ -39,7 +31,7 @@ function tempSave() {
 }
 
 function allocateShlokas(names) {
-    const mahaMantras = 38;
+    const mahaMantras = 38; // Total shlokas per Avarthi
     let csvContent = `Batch Number,,${window.localStorage.getItem("nsp-batchnumber")},,Date,${window.localStorage.getItem("nsp-satsangdate")}\n\n`;
     csvContent += "Shlokam, Start, End, Count, Devotee Name\n\n";
     let outputText = "*Om Namo Narayana* \n--------------------------------------------\n";
@@ -56,7 +48,7 @@ function allocateShlokas(names) {
 
         let selectedNames = names.slice(currentIndex, currentIndex + mahaMantras + 2);
 
-        // Ensure at least 3 names are available for Nyasam, Dhyanam, and Shlokam allocation
+        // If fewer than 3 names available, recycle names without repeating the first 10
         while (selectedNames.length < 3) {
             let extraNames = names.slice(10).sort(() => 0.5 - Math.random()).slice(0, 3 - selectedNames.length);
             selectedNames.push(...extraNames);
@@ -70,19 +62,14 @@ function allocateShlokas(names) {
         let startShloka = 1;
         let shlokaAllocation = selectedNames.slice(2);
 
-        // 🔹 **Fix: Fill missing slots if fewer than 38 shloka participants**
-        while (shlokaAllocation.length < mahaMantras) {
-            let extraNames = names.slice(10).sort(() => 0.5 - Math.random()).slice(0, mahaMantras - shlokaAllocation.length);
-            shlokaAllocation.push(...extraNames);
-        }
-
+        // 🔹 **Fix: Distribute shlokas evenly and do not repeat names unnecessarily**
+        let totalParticipants = shlokaAllocation.length;
+        let shlokasPerPerson = Math.max(1, Math.ceil(mahaMantras / totalParticipants));
         let remainingShlokas = mahaMantras;
-        let remainingParticipants = shlokaAllocation.length;
-        let shlokasPerPerson = Math.min(5, Math.ceil(remainingShlokas / remainingParticipants));
 
-        console.log(`Processing Avarthi ${avarthiCount}, Total Participants: ${shlokaAllocation.length}`);
+        console.log(`Processing Avarthi ${avarthiCount}, Total Participants: ${totalParticipants}`);
 
-        for (let i = 0; i < shlokaAllocation.length; i++) {
+        for (let i = 0; i < totalParticipants; i++) {
             let endShloka = startShloka + shlokasPerPerson - 1;
             if (endShloka > mahaMantras) endShloka = mahaMantras;
 
@@ -91,13 +78,8 @@ function allocateShlokas(names) {
 
             startShloka = endShloka + 1;
             remainingShlokas -= (endShloka - startShloka + 1);
-            remainingParticipants--;
-
+            
             if (startShloka > mahaMantras) break;
-
-            if (remainingParticipants > 0) {
-                shlokasPerPerson = Math.min(5, Math.ceil(remainingShlokas / remainingParticipants));
-            }
         }
 
         currentIndex += mahaMantras + 2;
