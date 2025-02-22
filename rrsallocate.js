@@ -41,6 +41,12 @@ function allocaterrs(strStyle) {
     allocateShlokas(curatedLines);
 }
 
+function tempSave() {
+    window.localStorage.setItem("nsp-names", document.getElementById('names').value);
+    window.localStorage.setItem("nsp-batchnumber", document.getElementById('batchnumber').value);
+    window.localStorage.setItem("nsp-satsangdate", document.getElementById('satsangdate').value);
+}
+
 function allocateShlokas(names) {
     const mahaMantras = 38;
     let csvContent = `Batch Number,,${window.localStorage.getItem("nsp-batchnumber")},,Date,${window.localStorage.getItem("nsp-satsangdate")}\n\n`;
