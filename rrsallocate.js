@@ -41,7 +41,6 @@ function tempSave() {
 
 function allocateShlokas(names) {
     const mahaMantras = 38;
-    const peoplePerAvarthi = 20;
     let csvContent = "Shlokam, Start, End, Count, Devotee Name\n";
     let outputText = "*Om Namo Narayana* \n--------------------------------------------\n";
 
@@ -49,18 +48,15 @@ function allocateShlokas(names) {
     let satsangDate = "Date: 1";
     outputText += `Batch Number: ${batchNumber}  [Satsang Date: ${satsangDate}]\n--------------------------------------------\n`;
     
-    let currentIndex = 0;
     let avarthiCount = 1;
-
+    let currentIndex = 0;
     while (currentIndex < names.length) {
         outputText += `\n${avarthiCount}-Avarthi\n`;
         
-        let startIndex = currentIndex;
-        let selectedNames = names.slice(startIndex, startIndex + peoplePerAvarthi);
-        
-        if (selectedNames.length < peoplePerAvarthi) {
-            let additionalNames = names.slice(5, 5 + (peoplePerAvarthi - selectedNames.length));
-            selectedNames = selectedNames.concat(additionalNames);
+        let selectedNames = names.slice(currentIndex);
+        if (selectedNames.length < 3) {
+            alert("Not enough people to allocate a full avarthi!");
+            return;
         }
         
         outputText += `Nyasa: ------------------${selectedNames[0]}\n`;
@@ -69,15 +65,20 @@ function allocateShlokas(names) {
         csvContent += `Dhyaanam,,,${selectedNames[1]}\n`;
         
         let startShloka = 1;
-        for (let i = 2; i < selectedNames.length; i++) {
-            let endShloka = startShloka + 1;
-            outputText += `Shlokam: ${startShloka}-${endShloka}-[2]---------${selectedNames[i]}\n`;
-            csvContent += `Shlokam, ${startShloka}, ${endShloka}, 2, ${selectedNames[i]}\n`;
+        let shlokaAllocation = selectedNames.slice(2);
+        let shlokasPerPerson = Math.ceil(mahaMantras / shlokaAllocation.length);
+        
+        for (let i = 0; i < shlokaAllocation.length; i++) {
+            let endShloka = startShloka + shlokasPerPerson - 1;
+            if (endShloka > mahaMantras) endShloka = mahaMantras;
+            outputText += `Shlokam: ${startShloka}-${endShloka}-[${endShloka - startShloka + 1}]---------${shlokaAllocation[i]}\n`;
+            csvContent += `Shlokam, ${startShloka}, ${endShloka}, ${endShloka - startShloka + 1}, ${shlokaAllocation[i]}\n`;
             startShloka = endShloka + 1;
+            if (startShloka > mahaMantras) break;
         }
         
         avarthiCount++;
-        currentIndex += peoplePerAvarthi;
+        currentIndex += selectedNames.length;
     }
 
     outputText += `\nEnding Prayer: ${names[Math.floor(Math.random() * names.length)]}\n`;
