@@ -41,12 +41,6 @@ function allocaterrs(strStyle) {
     allocateShlokas(curatedLines);
 }
 
-function tempSave() {
-    window.localStorage.setItem("nsp-names", document.getElementById('names').value);
-    window.localStorage.setItem("nsp-batchnumber", document.getElementById('batchnumber').value);
-    window.localStorage.setItem("nsp-satsangdate", document.getElementById('satsangdate').value);
-}
-
 function allocateShlokas(names) {
     const mahaMantras = 38;
     let csvContent = `Batch Number,,${window.localStorage.getItem("nsp-batchnumber")},,Date,${window.localStorage.getItem("nsp-satsangdate")}\n\n`;
@@ -63,6 +57,7 @@ function allocateShlokas(names) {
         outputText += `\n${avarthiCount}-Avarthi\n`;
         
         let selectedNames = names.slice(currentIndex, currentIndex + mahaMantras + 2);
+        
         if (selectedNames.length < 3) {
             alert("Not enough people to allocate a full avarthi!");
             return;
@@ -75,7 +70,15 @@ function allocateShlokas(names) {
         
         let startShloka = 1;
         let shlokaAllocation = selectedNames.slice(2);
+        
+        if (shlokaAllocation.length < mahaMantras) {
+            let extraNames = names.slice(10).sort(() => 0.5 - Math.random()).slice(0, mahaMantras - shlokaAllocation.length);
+            shlokaAllocation.push(...extraNames);
+        }
+        
         let shlokasPerPerson = Math.min(5, Math.ceil(mahaMantras / shlokaAllocation.length));
+        
+        console.log(`Processing Avarthi ${avarthiCount}, Total Participants: ${shlokaAllocation.length}`);
         
         for (let i = 0; i < shlokaAllocation.length; i++) {
             let endShloka = startShloka + shlokasPerPerson - 1;
@@ -89,7 +92,7 @@ function allocateShlokas(names) {
         currentIndex += selectedNames.length;
         avarthiCount++;
     }
-
+    
     let endingPrayerPerson = names[Math.floor(Math.random() * names.length)];
     outputText += `\nEnding Prayer: ${endingPrayerPerson}\n`;
     csvContent += `\nEnding Prayer,,,${endingPrayerPerson}\n`;
