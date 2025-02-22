@@ -99,6 +99,7 @@ function allocaterrs(strStyle) {
 		     }
 			 if(adjustAvarthiListwithLeftPeople==1){
 				 peoplePerA[p]=magicNumber+leftpeople;
+			 }
 		}
         else {
 			if(adjustAvarthiListwithLeftPeople == 1) {
