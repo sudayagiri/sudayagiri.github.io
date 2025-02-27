@@ -1,109 +1,137 @@
-var strCsv = '';
-var curatedLinesRolled = [];
-var purvanghamSlokas = 0;
-var mahaMantras = 38;
-var phalaShrutiSlokas = 0;
-var avarthi = 1;
+// JavaScript to allocate Nyasam, Dhyanam, and Shlokas for a satsang event
+// Ensures all participants are assigned correctly and avoids unnecessary repetition
 
-function allocaterrs(strStyle) {
+function allocaterrs() {
+    // Save user input before processing
     tempSave();
-    strCsv = 'Batch Number,' + window.localStorage.getItem("nsp-batchnumber") + ',,Date,'+ window.localStorage.getItem("nsp-satsangdate") + '\n\n';
-    strCsv += 'Shlokam,Start,End,Count,Devotee Name,Backup Chanter\n\n';
     
-    var txtNames = document.getElementById('names').value;
-    var objallocation = document.getElementById('allocation'); 
+    let batchNumber = window.localStorage.getItem("nsp-batchnumber");
+    let satsangDate = window.localStorage.getItem("nsp-satsangdate");
+    let txtNames = document.getElementById('names').value;
     
-    var curatedLines = txtNames.split('\n').map(name => name.trim()).filter(name => name);
-    if (curatedLines.length == 0) {
+    // Validate if required fields are provided
+    if (!batchNumber || !satsangDate || !txtNames.trim()) {
+        alert("Please enter Batch Number, Satsang Date, and Names before proceeding!");
+        return;
+    }
+
+    // Process names: Remove spaces and empty lines
+    let splittedLines = txtNames.split('\n').map(name => name.trim()).filter(name => name !== "");
+    if (splittedLines.length === 0) {
         alert('There are no people to allocate!');
         return;
     }
     
-    if (curatedLines[0].toUpperCase() == 'NSP') {
-        curatedLines = removeNSP(curatedLines);
-    }
-    
-    if (strStyle == 'random') shuffle(curatedLines);
-    if (strStyle == 'roll') {
-        if (curatedLinesRolled.length == 0) rollNames(curatedLines, true);
-        else rollNames(curatedLinesRolled, true);
-        curatedLines = [...curatedLinesRolled];
-    }
-    
-    var devoteeCounter = 0;
-    var totalShlokas = mahaMantras;
-    var numPeople = curatedLines.length - 1;
-    var perPersonShlokas = numPeople > 0 ? Math.ceil(totalShlokas / numPeople) : totalShlokas;
-    
-    var strStartingPrayerPerson = getRandomName(curatedLines);
-    strCsv += 'Starting Prayer: ,,,,' + strStartingPrayerPerson + '\n\n';
-    
-    var txtNyasa = 'Nyasa: ' + curatedLines[devoteeCounter++] + '\n';
-    strCsv += 'Nyasa' + ',,,,' + curatedLines[devoteeCounter - 1] + "\n\n";
-    
-    var txtShlokam = assignShlokas(mahaMantras, devoteeCounter, curatedLines);
-    
-    var strEndingPrayerPerson = getRandomName(curatedLines);
-    strCsv += 'Ending Prayer: ,,,,' + strEndingPrayerPerson + '\n';
-    
-    objallocation.value = 'Om Namo Narayana\n' + txtNyasa + '\n' + txtShlokam + '\nEnding Prayer: ' + strEndingPrayerPerson + '\n';
+    allocateShlokas(splittedLines);
 }
 
-function assignShlokas(totalShlokas, startIdx, curatedLines) {
-    var text = '';
-    var numPeople = curatedLines.length - startIdx;
-    var perPerson = numPeople > 0 ? Math.floor(totalShlokas / numPeople) : totalShlokas;
-    var remaining = totalShlokas % numPeople;
-    var start = 1;
-    var avarthi = 1;
-    
-    for (let i = startIdx; i < curatedLines.length; i++) {
-        let count = perPerson + (remaining-- > 0 ? 1 : 0);
-        let end = start + count - 1;
-        if (end > totalShlokas) end = totalShlokas;
-        
-        text += `Avarthi ${avarthi}: ${start}-${end} - ${curatedLines[i]}\n`;
-        strCsv += `Shlokam,${start},${end},${end - start + 1},${curatedLines[i]}\n`;
-        
-        if (end == totalShlokas) break;
-        start = end + 1;
-    }
-    return text;
-}
-
-function shuffle(array) {
-    for (let i = array.length - 1; i > 0; i--) {
-        let j = Math.floor(Math.random() * (i + 1));
-        [array[i], array[j]] = [array[j], array[i]];
-    }
-}
-
-function rollNames(arr, reverse) {
-    if (reverse) arr.unshift(arr.pop());
-    else arr.push(arr.shift());
-    curatedLinesRolled = [...arr];
-}
-
-function getRandomName(curatedLines) {
-    return curatedLines[Math.floor(Math.random() * curatedLines.length)];
-}
+// Function to save user input in local storage
 function tempSave() {
     window.localStorage.setItem("nsp-names", document.getElementById('names').value);
     window.localStorage.setItem("nsp-batchnumber", document.getElementById('batchnumber').value);
     window.localStorage.setItem("nsp-satsangdate", document.getElementById('satsangdate').value);
 }
+
+// Function to allocate shlokas to participants
+function allocateShlokas(names) {
+    const mahaMantras = 38; // Total shlokas per avarthi
+    let csvContent = `Batch Number,,${window.localStorage.getItem("nsp-batchnumber")},,Date,${window.localStorage.getItem("nsp-satsangdate")}\n\n`;
+    csvContent += "Shlokam, Start, End, Count, Devotee Name\n\n";
+    let outputText = "*Om Namo Narayana* \n--------------------------------------------\n";
+
+    let batchNumber = window.localStorage.getItem("nsp-batchnumber");
+    let satsangDate = window.localStorage.getItem("nsp-satsangdate");
+    outputText += `Batch Number: ${batchNumber}  [Satsang Date: ${satsangDate}]\n--------------------------------------------\n\n`;
+
+    let avarthiCount = 1;
+    let currentIndex = 0;
+    let firstTenNames = names.slice(0, 10); // Store the first 10 names
+    let remainingNames = names.slice(10); // Names excluding the first 10
+
+    while (currentIndex < names.length) {
+        outputText += `\n${avarthiCount}-Avarthi\n`;
+
+        // Select names for the current avarthi (Nyasa, Dhyaanam, and Shlokams)
+        let selectedNames = names.slice(currentIndex, currentIndex + mahaMantras + 2);
+
+        // Ensure at least 3 names are available for Nyasam, Dhyanam, and Shlokam allocation
+        while (selectedNames.length < 3) {
+            let extraNames = remainingNames.sort(() => 0.5 - Math.random()).slice(0, 3 - selectedNames.length);
+            selectedNames.push(...extraNames);
+        }
+
+        outputText += `Nyasa: ------------------${selectedNames[0]}\n`;
+        outputText += `Dhyaanam: 1--------------${selectedNames[1]}\n\n`;
+        csvContent += `Nyasa,,,${selectedNames[0]}\n\n`;
+        csvContent += `Dhyaanam,,,${selectedNames[1]}\n\n`;
+
+        let startShloka = 1;
+        let shlokaAllocation = selectedNames.slice(2);
+
+        // Ensure we allocate 38 shlokas by adding extra names if needed (excluding the first 10 names)
+        while (shlokaAllocation.length < mahaMantras) {
+            let extraNames = remainingNames.sort(() => 0.5 - Math.random()).slice(0, mahaMantras - shlokaAllocation.length);
+            shlokaAllocation.push(...extraNames);
+        }
+
+        let remainingShlokas = mahaMantras;
+        let remainingParticipants = shlokaAllocation.length;
+        let shlokasPerPerson = Math.min(5, Math.ceil(remainingShlokas / remainingParticipants));
+
+        console.log(`Processing Avarthi ${avarthiCount}, Total Participants: ${shlokaAllocation.length}`);
+
+        for (let i = 0; i < shlokaAllocation.length; i++) {
+            let endShloka = startShloka + shlokasPerPerson - 1;
+            if (endShloka > mahaMantras) endShloka = mahaMantras;
+
+            outputText += `Shlokam: ${startShloka}-${endShloka}-[${endShloka - startShloka + 1}]---------${shlokaAllocation[i]}\n`;
+            csvContent += `Shlokam, ${startShloka}, ${endShloka}, ${endShloka - startShloka + 1}, ${shlokaAllocation[i]}\n`;
+
+            startShloka = endShloka + 1;
+            remainingShlokas -= (endShloka - startShloka + 1);
+            remainingParticipants--;
+
+            if (startShloka > mahaMantras) break;
+
+            if (remainingParticipants > 0) {
+                shlokasPerPerson = Math.min(5, Math.ceil(remainingShlokas / remainingParticipants));
+            }
+        }
+
+        currentIndex += mahaMantras + 2;
+        avarthiCount++;
+    }
+
+    // Select a random ending prayer person from available names
+    let endingPrayerPerson = names[Math.floor(Math.random() * names.length)];
+    outputText += `\nEnding Prayer: ${endingPrayerPerson}\n`;
+    csvContent += `\nEnding Prayer,,,${endingPrayerPerson}\n`;
+
+    console.log(outputText);
+    document.getElementById('allocation').value = outputText;
+    window.localStorage.setItem("csvData", csvContent);
+}
+
+// Function to load stored names into the input field
 function loadPeople() {
-	if(window.localStorage.getItem("nsp-batchnumber") != '')  document.getElementById('batchnumber').value = window.localStorage.getItem("nsp-batchnumber");
-	if(window.localStorage.getItem("nsp-satsangdate") != '')  document.getElementById('satsangdate').value = window.localStorage.getItem("nsp-satsangdate");
-	
-	var objNames = document.getElementById('names');
-	if(window.localStorage.getItem("nsp-names") != '') 
-		objNames.value = window.localStorage.getItem("nsp-names");
-	else {
-		text = '';
-		for (let i = 1; i <= 20; i++) {
-			text += i + 'person' + '\n'
-		}
-		objNames.value =  text
-	}	
+    let storedNames = window.localStorage.getItem("nsp-names");
+    if (storedNames) {
+        document.getElementById('names').value = storedNames;
+    }
+}
+
+// Function to download CSV output
+function downloadCSV() {
+    let csvData = window.localStorage.getItem("csvData");
+    if (!csvData) {
+        alert("No CSV data available to download!!");
+        return;
+    }
+    let blob = new Blob([csvData], { type: 'text/csv' });
+    let link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = 'shloka_allocation.csv';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
 }
