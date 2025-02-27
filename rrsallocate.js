@@ -87,3 +87,23 @@ function rollNames(arr, reverse) {
 function getRandomName(curatedLines) {
     return curatedLines[Math.floor(Math.random() * curatedLines.length)];
 }
+function tempSave() {
+    window.localStorage.setItem("nsp-names", document.getElementById('names').value);
+    window.localStorage.setItem("nsp-batchnumber", document.getElementById('batchnumber').value);
+    window.localStorage.setItem("nsp-satsangdate", document.getElementById('satsangdate').value);
+}
+function loadPeople() {
+	if(window.localStorage.getItem("nsp-batchnumber") != '')  document.getElementById('batchnumber').value = window.localStorage.getItem("nsp-batchnumber");
+	if(window.localStorage.getItem("nsp-satsangdate") != '')  document.getElementById('satsangdate').value = window.localStorage.getItem("nsp-satsangdate");
+	
+	var objNames = document.getElementById('names');
+	if(window.localStorage.getItem("nsp-names") != '') 
+		objNames.value = window.localStorage.getItem("nsp-names");
+	else {
+		text = '';
+		for (let i = 1; i <= 20; i++) {
+			text += i + 'person' + '\n'
+		}
+		objNames.value =  text
+	}	
+}
