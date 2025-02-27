@@ -137,7 +137,7 @@ function downloadCSV() {
     let blob = new Blob([csvData], { type: 'text/csv' });
     let link = document.createElement('a');
     link.href = URL.createObjectURL(blob);
-    link.download = 'shloka_allocation.csv';
+    link.download = 'rrs_allocation.csv';
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
