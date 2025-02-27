@@ -69,11 +69,18 @@ function allocateShlokas(names) {
         let shlokaAllocation = selectedNames.slice(2);
 
         // Ensure we allocate 38 shlokas by adding extra names if needed (excluding the first 10 names)
-        while (shlokaAllocation.length < mahaMantras) {
-            let extraNames = remainingNames.sort(() => 0.5 - Math.random()).slice(0, mahaMantras - shlokaAllocation.length);
-            shlokaAllocation.push(...extraNames);
-        }
+let unusedNames = names.filter(name => !shlokaAllocation.includes(name));
 
+while (shlokaAllocation.length < mahaMantras) {
+    if (unusedNames.length > 0) {
+        // Take from unused names first
+        shlokaAllocation.push(unusedNames.shift());
+    } else {
+        // If all names are used, start picking again (excluding the first 10 names)
+        let extraNames = remainingNames.sort(() => 0.5 - Math.random()).slice(0, mahaMantras - shlokaAllocation.length);
+        shlokaAllocation.push(...extraNames);
+    }
+}
         let remainingShlokas = mahaMantras;
         let remainingParticipants = shlokaAllocation.length;
         let shlokasPerPerson = Math.min(5, Math.ceil(remainingShlokas / remainingParticipants));
