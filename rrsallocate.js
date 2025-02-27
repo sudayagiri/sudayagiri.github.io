@@ -44,61 +44,70 @@ function allocateShlokas(names) {
     csvContent += "Shlokam, Start, End, Count, Devotee Name\n\n";
     let outputText = "*Om Namo Narayana* \n--------------------------------------------\n";
 
-    let batchNumber = window.localStorage.getItem("nsp-batchnumber");
-    let satsangDate = window.localStorage.getItem("nsp-satsangdate");
-    outputText += `Batch Number: ${batchNumber}  [Satsang Date: ${satsangDate}]\n--------------------------------------------\n\n`;
+let batchNumber = window.localStorage.getItem("nsp-batchnumber");
+let satsangDate = window.localStorage.getItem("nsp-satsangdate");
+outputText += `Batch Number: ${batchNumber}  [Satsang Date: ${satsangDate}]\n--------------------------------------------\n\n`;
 
-    let avarthiCount = 1;
-    let currentIndex = 0;
+let avarthiCount = 1;
+let currentIndex = 0;
 
-    while (currentIndex < names.length) {
-        outputText += `\n${avarthiCount}-Avarthi\n`;
-
-        let selectedNames = names.slice(currentIndex, currentIndex + mahaMantras + 2);
-
-        // If fewer than 3 names available, pick extra names (without repeating first 10 names)
-        while (selectedNames.length < 3) {
-            let extraNames = names.slice(10).sort(() => 0.5 - Math.random()).slice(0, 3 - selectedNames.length);
-            selectedNames.push(...extraNames);
-        }
-
-        outputText += `Nyasa: ------------------${selectedNames[0]}\n`;
-        outputText += `Dhyaanam: 1--------------${selectedNames[1]}\n\n`;
-        csvContent += `Nyasa,,,${selectedNames[0]}\n\n`;
-        csvContent += `Dhyaanam,,,${selectedNames[1]}\n\n`;
-
-        let startShloka = 1;
-        let shlokaAllocation = selectedNames.slice(2);
-
-        // 🔹 **Fix: Distribute shlokas fairly with max 5 per person**
-        let remainingShlokas = mahaMantras;
-        let remainingParticipants = shlokaAllocation.length;
-        
-        let shlokaIndex = 0;
-        while (remainingShlokas > 0) {
-            let assignedShlokas = Math.min(maxShlokasPerPerson, remainingShlokas);
-            let endShloka = startShloka + assignedShlokas - 1;
-            let devotee = shlokaAllocation[shlokaIndex % shlokaAllocation.length]; // Rotate names
-
-            outputText += `Shlokam: ${startShloka}-${endShloka}-[${assignedShlokas}]---------${devotee}\n`;
-            csvContent += `Shlokam, ${startShloka}, ${endShloka}, ${assignedShlokas}, ${devotee}\n`;
-
-            startShloka = endShloka + 1;
-            remainingShlokas -= assignedShlokas;
-            shlokaIndex++;
-        }
-
-        currentIndex += mahaMantras + 2;
-        avarthiCount++;
+while (currentIndex < names.length) {
+    outputText += `\n${avarthiCount}-Avarthi\n`;
+    
+    let selectedNames = names.slice(currentIndex, currentIndex + mahaMantras + 2);
+    
+    if (selectedNames.length < 3) {
+        let extraNames = names.slice(10).sort(() => 0.5 - Math.random()).slice(0, 3 - selectedNames.length);
+        selectedNames.push(...extraNames);
     }
+    
+    outputText += `Nyasa: ------------------${selectedNames[0]}\n`;
+    outputText += `Dhyaanam: 1--------------${selectedNames[1]}\n\n`;
+    csvContent += `Nyasa,,,${selectedNames[0]}\n\n`;
+    csvContent += `Dhyaanam,,,${selectedNames[1]}\n\n`;
+    
+    let startShloka = 1;
+    let shlokaAllocation = selectedNames.slice(2);
+    
+    while (shlokaAllocation.length < mahaMantras) {
+        let extraNames = names.slice(10).sort(() => 0.5 - Math.random()).slice(0, mahaMantras - shlokaAllocation.length);
+        shlokaAllocation.push(...extraNames);
+    }
+    
+    let remainingShlokas = mahaMantras;
+    let remainingParticipants = shlokaAllocation.length;
+    let shlokasPerPerson = Math.min(5, Math.ceil(remainingShlokas / remainingParticipants));
+    
+    console.log(`Processing Avarthi ${avarthiCount}, Total Participants: ${shlokaAllocation.length}`);
+    
+    for (let i = 0; i < shlokaAllocation.length; i++) {
+        let endShloka = startShloka + shlokasPerPerson - 1;
+        if (endShloka > mahaMantras) endShloka = mahaMantras;
+        
+        outputText += `Shlokam: ${startShloka}-${endShloka}-[${endShloka - startShloka + 1}]---------${shlokaAllocation[i]}\n`;
+        csvContent += `Shlokam, ${startShloka}, ${endShloka}, ${endShloka - startShloka + 1}, ${shlokaAllocation[i]}\n`;
+        
+        startShloka = endShloka + 1;
+        remainingShlokas -= (endShloka - startShloka + 1);
+        remainingParticipants--;
+        
+        if (startShloka > mahaMantras) break;
+        if (remainingParticipants > 0) {
+            shlokasPerPerson = Math.min(5, Math.ceil(remainingShlokas / remainingParticipants));
+        }
+    }
+    
+    currentIndex += mahaMantras + 2;
+    avarthiCount++;
+}
 
-    let endingPrayerPerson = names[Math.floor(Math.random() * names.length)];
-    outputText += `\nEnding Prayer: ${endingPrayerPerson}\n`;
-    csvContent += `\nEnding Prayer,,,${endingPrayerPerson}\n`;
+let endingPrayerPerson = names[Math.floor(Math.random() * names.length)];
+outputText += `\nEnding Prayer: ${endingPrayerPerson}\n`;
+csvContent += `\nEnding Prayer,,,${endingPrayerPerson}\n`;
 
-    console.log(outputText);
-    document.getElementById('allocation').value = outputText;
-    window.localStorage.setItem("csvData", csvContent);
+console.log(outputText);
+document.getElementById('allocation').value = outputText;
+window.localStorage.setItem("csvData", csvContent);
 }
 
 function downloadCSV() {
