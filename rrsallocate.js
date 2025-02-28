@@ -54,6 +54,7 @@ function allocateShlokas(names) {
 
         // Select names for the current avarthi (Nyasa, Dhyaanam, and Shlokams)
         let selectedNames = names.slice(currentIndex, currentIndex + mahaMantras + 2);
+		currentIndex += mahaMantras + 2;
 
         // Ensure at least 3 names are available for Nyasam, Dhyanam, and Shlokam allocation
         while (selectedNames.length < 3) {
@@ -106,7 +107,7 @@ while (shlokaAllocation.length < mahaMantras) {
             }
         }
 
-        currentIndex += mahaMantras + 2;
+      //  currentIndex += mahaMantras + 2;
         avarthiCount++;
 			 console.log('currentIndex:',currentIndex,' avarthiCount:', avarthiCount, ' startShloka:', startShloka, 'names total:', names.length);
     }
