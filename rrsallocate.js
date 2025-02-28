@@ -47,7 +47,7 @@ function allocateShlokas(names) {
     let currentIndex = 0;
     let firstTenNames = names.slice(0, 10); // Store the first 10 names
     let remainingNames = names.slice(10); // Names excluding the first 
-	 console.log('total number of names', names.length);
+	 console.log('\n total number of names :', names.length, '\n', names,'\n');
 
     while (currentIndex < names.length) {
         outputText += `\n${avarthiCount}-Avarthi\n`;
@@ -55,7 +55,8 @@ function allocateShlokas(names) {
         // Select names for the current avarthi (Nyasa, Dhyaanam, and Shlokams)
         let selectedNames = names.slice(currentIndex, currentIndex + mahaMantras + 2);
 		
-
+		
+         console.log('\n selectedNames:\n', selectedNames, 'selectedNames.length:', selectedNames.length,'\n');
         // Ensure at least 3 names are available for Nyasam, Dhyanam, and Shlokam allocation
         while (selectedNames.length < 3) {
             let extraNames = remainingNames.sort(() => 0.5 - Math.random()).slice(0, 3 - selectedNames.length);
@@ -72,6 +73,7 @@ function allocateShlokas(names) {
 
         // Ensure we allocate 38 shlokas by adding extra names if needed (excluding the first 10 names)
 let unusedNames = names.filter(name => !shlokaAllocation.includes(name));
+   console.log('\n unused names:\n', unusedNames);
 
 while (shlokaAllocation.length < mahaMantras) {
     if (unusedNames.length > 0) {
