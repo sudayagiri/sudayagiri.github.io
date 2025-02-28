@@ -35,6 +35,7 @@ function tempSave() {
 // Function to allocate shlokas to participants
 function allocateShlokas(names) {
     const mahaMantras = 38; // Total shlokas per avarthi
+	let actualParticipantsofAvarthi = 0; //avarthi actual allocation after division of shlokas by people
     let csvContent = `Batch Number,,${window.localStorage.getItem("nsp-batchnumber")},,Date,${window.localStorage.getItem("nsp-satsangdate")}\n\n`;
     csvContent += "Shlokam, Start, End, Count, Devotee Name\n\n";
     let outputText = "*Om Namo Narayana* \n--------------------------------------------\n";
@@ -101,6 +102,7 @@ while (shlokaAllocation.length < mahaMantras) {
             startShloka = endShloka + 1;
             remainingShlokas -= (endShloka - startShloka + 1);
             remainingParticipants--;
+			actualParticipantsofAvarthi++;
 
             if (startShloka > mahaMantras) break;
 
@@ -109,7 +111,8 @@ while (shlokaAllocation.length < mahaMantras) {
             }
         }
 
-        currentIndex += mahaMantras + 2;
+        currentIndex += actualParticipantsofAvarthi + 2;
+		actualParticipantsofAvarthi = 0;
         avarthiCount++;
 			 console.log('currentIndex:',currentIndex,' avarthiCount:', avarthiCount, ' startShloka:', startShloka, 'names total:', names.length);
     }
