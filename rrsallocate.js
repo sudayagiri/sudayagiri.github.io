@@ -49,7 +49,7 @@ function allocateShlokas(names) {
     let remainingNames = names.slice(10); // Names excluding the first 
 	 console.log('total number of names', names.length);
 
-    while (currentIndex < names.length) {
+    while (currentIndex <= names.length) {
         outputText += `\n${avarthiCount}-Avarthi\n`;
 
         // Select names for the current avarthi (Nyasa, Dhyaanam, and Shlokams)
