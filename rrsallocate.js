@@ -46,7 +46,8 @@ function allocateShlokas(names) {
     let avarthiCount = 1;
     let currentIndex = 0;
     let firstTenNames = names.slice(0, 10); // Store the first 10 names
-    let remainingNames = names.slice(10); // Names excluding the first 10
+    let remainingNames = names.slice(10); // Names excluding the first 
+	 console.log('total number of names', names.length);
 
     while (currentIndex < names.length) {
         outputText += `\n${avarthiCount}-Avarthi\n`;
@@ -107,6 +108,7 @@ while (shlokaAllocation.length < mahaMantras) {
 
         currentIndex += mahaMantras + 2;
         avarthiCount++;
+			 console.log('currentIndex:',currentIndex,' avarthiCount:', avarthiCount, ' startShloka:', startShloka, 'names total:', names.length);
     }
 
     // Select a random ending prayer person from available names
