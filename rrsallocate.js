@@ -87,7 +87,7 @@ while (shlokaAllocation.length < mahaMantras) {
 }
         let remainingShlokas = mahaMantras;
         let remainingParticipants = shlokaAllocation.length;
-        let shlokasPerPerson = Math.min(5, Math.ceil(remainingShlokas / remainingParticipants));
+        let shlokasPerPerson = Math.min(5, Math.floor(remainingShlokas / remainingParticipants));
 
         console.log(`Processing Avarthi ${avarthiCount}, Total Participants: ${shlokaAllocation.length}`);
 
