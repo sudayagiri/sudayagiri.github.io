@@ -80,7 +80,8 @@ function allocateShlokas(names) {
         let shlokaAllocation = selectedNames.slice(2);
 
         // Ensure we allocate 38 shlokas by adding extra names if needed (excluding the first 10 names)
-let unusedNames = names.filter(name => !shlokaAllocation.includes(name));
+//let unusedNames = names.filter(name => !shlokaAllocation.includes(name));
+  let unusedNames = names.filter(name => !selectedNames.includes(name));
    console.log('\n unused names:\n', unusedNames);
 
 while (shlokaAllocation.length < mahaMantras) {
