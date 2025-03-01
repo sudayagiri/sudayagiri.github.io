@@ -64,7 +64,7 @@ function allocateShlokas(names) {
             let extraNames = remainingNames.sort(() => 0.5 - Math.random()).slice(0, 3 - selectedNames.length);
             selectedNames.push(...extraNames);
 			}
-			else { shlokaAllocation.push(names.sort(() => 0.5 - Math.random()).slice(0, mahaMantras - shlokaAllocation.length);
+			else { shlokaAllocation.push(names.sort(() => 0.5 - Math.random()).slice(0, mahaMantras - shlokaAllocation.length));
 		      }
 		  }
 
