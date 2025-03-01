@@ -99,14 +99,9 @@ while (shlokaAllocation.length < mahaMantras) {
 		 else{shlokaAllocation.push(unusedNames.shift());}
          }
      else {
-        // If all names are used, start picking again (excluding the first 10 names)
-		if(names.length >= 15){
-        let extraNames = remainingNames.sort(() => 0.5 - Math.random()).slice(0, mahaMantras - shlokaAllocation.length);
-        shlokaAllocation.push(...extraNames);
-		console.log('extra names:',extraNames, '\n', 'shlokaAllocation: ',shlokaAllocation,'\n');
-		}
-		else { shlokaAllocation.push(names.sort(() => 0.5 - Math.random()).slice(0, mahaMantras - shlokaAllocation.length));
-		}
+       
+	       shlokaAllocation.push(names.sort(() => 0.5 - Math.random()).slice(0, mahaMantras - shlokaAllocation.length));
+		
 	  }
 	}
     
