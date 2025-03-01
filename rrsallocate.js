@@ -63,9 +63,12 @@ function allocateShlokas(names) {
 			if(names.length >= 15){
             let extraNames = remainingNames.sort(() => 0.5 - Math.random()).slice(0, 3 - selectedNames.length);
             selectedNames.push(...extraNames);
+			console.log('\n extra names while:',extranames, '\n');
 			}
 			else { shlokaAllocation.push(names.sort(() => 0.5 - Math.random()).slice(0, mahaMantras - shlokaAllocation.length));
+			console.log('extra names while else:', extranames,'\n', 'shlokaallocation \n', shlokaAllocation,'\n');
 		      }
+			  
 		  }
 
         outputText += `Nyasa: ------------------${selectedNames[0]}\n`;
