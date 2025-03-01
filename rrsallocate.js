@@ -91,7 +91,7 @@ while (shlokaAllocation.length < mahaMantras) {
         shlokaAllocation.push(...extraNames);
 		console.log('extra names:',extranames, '\n');
 		}
-		else { shlokaAllocation.push(names.sort(() => 0.5 - Math.random()).slice(0, mahaMantras - shlokaAllocation.length);
+		else { shlokaAllocation.push(names.sort(() => 0.5 - Math.random()).slice(0, mahaMantras - shlokaAllocation.length));
 		}
     }
 }
