@@ -63,10 +63,10 @@ function allocateShlokas(names) {
 			if(names.length >= 15){
             let extraNames = remainingNames.sort(() => 0.5 - Math.random()).slice(0, 3 - selectedNames.length);
             selectedNames.push(...extraNames);
-			console.log('\n extra names while:',extranames, '\n');
+			console.log('\n extra names while:',extraNames, '\n');
 			}
 			else { shlokaAllocation.push(names.sort(() => 0.5 - Math.random()).slice(0, mahaMantras - shlokaAllocation.length));
-			console.log('extra names while else:', extranames,'\n', 'shlokaallocation \n', shlokaAllocation,'\n');
+			console.log('extra names while else:', extraNames,'\n', 'shlokaallocation \n', shlokaAllocation,'\n');
 		      }
 			  
 		  }
@@ -102,7 +102,7 @@ while (shlokaAllocation.length < mahaMantras) {
 		if(names.lengh >= 15){
         let extraNames = remainingNames.sort(() => 0.5 - Math.random()).slice(0, mahaMantras - shlokaAllocation.length);
         shlokaAllocation.push(...extraNames);
-		console.log('extra names:',extranames, '\n');
+		console.log('extra names:',extraNames, '\n');
 		}
 		else { shlokaAllocation.push(names.sort(() => 0.5 - Math.random()).slice(0, mahaMantras - shlokaAllocation.length));
 		}
