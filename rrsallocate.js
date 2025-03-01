@@ -88,8 +88,8 @@ while (shlokaAllocation.length < mahaMantras) {
         // Take from unused names first
 		if(names.length >= 15){
 		      let notfirsttenNames = unusedNames.filter(name => !remainingNames.includes(name));
-		      console.log('\n unused names:\n', notfirsttenNames);
-		      shlokaAllocation.push(notfirsttenNames.shift());}
+		      console.log('\n notfirsttenNames names:\n', notfirsttenNames);
+		      shlokaAllocation.push(notfirsttenNames.sort(() => 0.5 - Math.random()).slice(0, mahaMantras - shlokaAllocation.length));}
 		 else{shlokaAllocation.push(unusedNames.shift());}
          }
      else {
