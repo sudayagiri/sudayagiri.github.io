@@ -61,8 +61,8 @@ function allocateShlokas(names) {
 	 console.log('\n total number of names :', names.length, '\n', names,'\n');
 
     while (currentIndex < names.length) {
-        outputText += `\n${avarthiCount}-Avarthi\n`;
-		csvContent += `\n${avarthiCount}-Avarthi\n`;
+        outputText += `\nAvarthi-${avarthiCount}\n`;
+		csvContent += `\nAvarthi-${avarthiCount}\n`;
 		        
         // Select names for the current avarthi (Nyasa, Dhyaanam, and Shlokams)
         let selectedNames = names.slice(currentIndex, currentIndex + mahaMantras + 2);
