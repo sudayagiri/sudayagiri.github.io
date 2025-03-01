@@ -94,7 +94,11 @@ while (shlokaAllocation.length < mahaMantras) {
 }
         let remainingShlokas = mahaMantras;
         let remainingParticipants = shlokaAllocation.length;
-        let shlokasPerPerson = Math.min(5, Math.floor(remainingShlokas / remainingParticipants));
+		 let shlokasPerPerson = 0;
+		if(Math.floor(remainingShlokas/remainingParticipants) == 1){
+		shlokasPerPerson = 2; }
+		else {
+        shlokasPerPerson = Math.min(5, Math.floor(remainingShlokas / remainingParticipants));}
 
         console.log(`Processing Avarthi ${avarthiCount}, Total Participants: ${shlokaAllocation.length}`);
 
@@ -113,7 +117,11 @@ while (shlokaAllocation.length < mahaMantras) {
             if (startShloka > mahaMantras) break;
 
             if (remainingParticipants > 0) {
+				if(Math.ceil(remainingShlokas / remainingParticipants) == 1){
+				shlokasPerPerson = 2;}
+				else {
                 shlokasPerPerson = Math.min(5, Math.ceil(remainingShlokas / remainingParticipants));
+				}
             }
         }
 
