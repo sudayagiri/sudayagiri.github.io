@@ -46,6 +46,13 @@ function allocateShlokas(names) {
     let batchNumber = window.localStorage.getItem("nsp-batchnumber");
     let satsangDate = window.localStorage.getItem("nsp-satsangdate");
     outputText += `Batch Number: ${batchNumber}  [Satsang Date: ${satsangDate}]\n--------------------------------------------\n\n`;
+	
+	   // Select a random starting prayer person from available names
+    let startingPrayerPerson = names[Math.floor(Math.random() * names.length)];
+    outputText += `\nEnding Prayer: ${startingPrayerPerson}\n`;
+    csvContent += `\nEnding Prayer,,,${startingPrayerPerson}\n`;
+
+    console.log(outputText);
 
     let avarthiCount = 1;
     let currentIndex = 0;
@@ -55,6 +62,7 @@ function allocateShlokas(names) {
 
     while (currentIndex < names.length) {
         outputText += `\n${avarthiCount}-Avarthi\n`;
+		csvContent += `\n${avarthiCount}-Avarthi\n`;
 		        
         // Select names for the current avarthi (Nyasa, Dhyaanam, and Shlokams)
         let selectedNames = names.slice(currentIndex, currentIndex + mahaMantras + 2);
@@ -66,10 +74,10 @@ function allocateShlokas(names) {
             let extraNames = remainingNames.sort(() => 0.5 - Math.random()).slice(0, 3 - selectedNames.length);
             selectedNames.push(...extraNames);
         }
-
+ 
         outputText += `Nyasa: ------------------${selectedNames[0]}\n`;
         outputText += `Dhyaanam: 1--------------${selectedNames[1]}\n\n`;
-        csvContent += `Nyasa,,,${selectedNames[0]}\n\n`;
+        csvContent += `Nyasa,,,${selectedNames[0]}\n`;
         csvContent += `Dhyaanam,,,${selectedNames[1]}\n\n`;
 
         let startShloka = 1;
