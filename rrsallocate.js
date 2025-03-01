@@ -61,12 +61,12 @@ function allocateShlokas(names) {
         // Ensure at least 3 names are available for Nyasam, Dhyanam, and Shlokam allocation
         while (selectedNames.length < 3) {
 			if(names.length >= 15){
-            let extraNames = remainingNames.sort(() => 0.5 - Math.random()).slice(0, 3 - selectedNames.length);
+            let extraNames = remainingNames.sort(() => 0.5 - Math.random()).slice(0, mahaMantras - selectedNames.length);
             selectedNames.push(...extraNames);
 			console.log('\n extra names while:',extraNames, '\n');
 			}
-			else { shlokaAllocation.push(names.sort(() => 0.5 - Math.random()).slice(0, mahaMantras - shlokaAllocation.length));
-			console.log('extra names while else:', extraNames,'\n', 'shlokaallocation \n', shlokaAllocation,'\n');
+			else { shlokaAllocation.push(names.sort(() => 0.5 - Math.random()).slice(0, 3 - shlokaAllocation.length));
+			console.log('extra names while else:', extraNames,'\n', 'shlokaAllocation \n', shlokaAllocation,'\n');
 		      }
 			  
 		  }
@@ -89,8 +89,8 @@ while (shlokaAllocation.length < mahaMantras) {
         // Take from unused names first
 		if(names.length >= 15){
 		      let notfirsttenNames = unusedNames.filter(name => !firstTenNames.includes(name));
-		      console.log('\n notfirsttenNames names:\n', notfirsttenNames);
-			  if(notfirsttenNames > 0){
+		      console.log('\n notfirsttenNames names:\n', notfirsttenNames,'shlokaAllocation',shlokaAllocation.length);
+			  if(notfirsttenNames > 0 ){
 		      shlokaAllocation.push(...notfirsttenNames.sort(() => 0.5 - Math.random()).slice(0, mahaMantras - shlokaAllocation.length));
 		      }
 	          }
@@ -109,7 +109,7 @@ while (shlokaAllocation.length < mahaMantras) {
 	  }
 	}
     
-
+        console.log(`\n shlokaAllocation post while check:`,shlokaAllocation,'\n','its length: ', shlokaAllocation.length);
         let remainingShlokas = mahaMantras;
         let remainingParticipants = shlokaAllocation.length;
         let shlokasPerPerson = Math.min(5, Math.floor(remainingShlokas / remainingParticipants));
