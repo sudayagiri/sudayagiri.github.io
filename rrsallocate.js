@@ -24,6 +24,9 @@ function allocaterrs() {
     
     allocateShlokas(splittedLines);
 }
+function clearNames() {
+  document.getElementById('names').value = '' ;
+}
 
 // Function to save user input in local storage
 function tempSave() {
