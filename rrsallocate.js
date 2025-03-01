@@ -86,8 +86,13 @@ let unusedNames = names.filter(name => !shlokaAllocation.includes(name));
 while (shlokaAllocation.length < mahaMantras) {
     if (unusedNames.length > 0) {
         // Take from unused names first
-        shlokaAllocation.push(unusedNames.shift());
-    } else {
+		if(names.length >= 15){
+		      let notfirsttenNames = unusedNames.filter(name => !remainingNames.includes(name));
+		      console.log('\n unused names:\n', notfirsttenNames);
+		      shlokaAllocation.push(notfirsttenNames.shift());}
+		 else{shlokaAllocation.push(unusedNames.shift());}
+         }
+     else {
         // If all names are used, start picking again (excluding the first 10 names)
 		if(names.lengh >= 15){
         let extraNames = remainingNames.sort(() => 0.5 - Math.random()).slice(0, mahaMantras - shlokaAllocation.length);
@@ -96,8 +101,10 @@ while (shlokaAllocation.length < mahaMantras) {
 		}
 		else { shlokaAllocation.push(names.sort(() => 0.5 - Math.random()).slice(0, mahaMantras - shlokaAllocation.length));
 		}
-    }
-}
+	  }
+	}
+    
+
         let remainingShlokas = mahaMantras;
         let remainingParticipants = shlokaAllocation.length;
         let shlokasPerPerson = Math.min(5, Math.floor(remainingShlokas / remainingParticipants));
