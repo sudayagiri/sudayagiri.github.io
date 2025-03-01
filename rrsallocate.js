@@ -60,16 +60,9 @@ function allocateShlokas(names) {
          console.log('\n selectedNames:\n', selectedNames, 'selectedNames.length:', selectedNames.length,'\n');
         // Ensure at least 3 names are available for Nyasam, Dhyanam, and Shlokam allocation
         while (selectedNames.length < 3) {
-			if(names.length >= 15){
-            let extraNames = remainingNames.sort(() => 0.5 - Math.random()).slice(0, mahaMantras - selectedNames.length);
+            let extraNames = remainingNames.sort(() => 0.5 - Math.random()).slice(0, 3 - selectedNames.length);
             selectedNames.push(...extraNames);
-			console.log('\n extra names while:',extraNames, '\n');
-			}
-			else { shlokaAllocation.push(names.sort(() => 0.5 - Math.random()).slice(0, 3 - shlokaAllocation.length));
-			console.log('extra names while else:', extraNames,'\n', 'shlokaAllocation \n', shlokaAllocation,'\n');
-		      }
-			  
-		  }
+        }
 
         outputText += `Nyasa: ------------------${selectedNames[0]}\n`;
         outputText += `Dhyaanam: 1--------------${selectedNames[1]}\n\n`;
@@ -80,32 +73,19 @@ function allocateShlokas(names) {
         let shlokaAllocation = selectedNames.slice(2);
 
         // Ensure we allocate 38 shlokas by adding extra names if needed (excluding the first 10 names)
-//let unusedNames = names.filter(name => !shlokaAllocation.includes(name));
-  let unusedNames = names.filter(name => !selectedNames.includes(name));
+let unusedNames = names.filter(name => !shlokaAllocation.includes(name));
    console.log('\n unused names:\n', unusedNames);
-   console.log('\n shlokaAllocation.length: ',shlokaAllocation.length,'\n');
 
 while (shlokaAllocation.length < mahaMantras) {
     if (unusedNames.length > 0) {
         // Take from unused names first
-		if(names.length >= 15){
-		      let notfirsttenNames = unusedNames.filter(name => !firstTenNames.includes(name));
-		      console.log('\n notfirsttenNames names:\n', notfirsttenNames,'shlokaAllocation',shlokaAllocation.length);
-			  if(notfirsttenNames > 0 ){
-		      shlokaAllocation.push(...notfirsttenNames.sort(() => 0.5 - Math.random()).slice(0, mahaMantras - shlokaAllocation.length));
-		      }
-	          }
-	      
-		 else{shlokaAllocation.push(unusedNames.shift());}
-         }
-     else {
-       
-	       shlokaAllocation.push(names.sort(() => 0.5 - Math.random()).slice(0, mahaMantras - shlokaAllocation.length));
-		
-	  }
-	}
-    
-        console.log(`\n shlokaAllocation post while check:`,shlokaAllocation,'\n','its length: ', shlokaAllocation.length);
+        shlokaAllocation.push(unusedNames.shift());
+    } else {
+        // If all names are used, start picking again (excluding the first 10 names)
+        let extraNames = remainingNames.sort(() => 0.5 - Math.random()).slice(0, mahaMantras - shlokaAllocation.length);
+        shlokaAllocation.push(...extraNames);
+    }
+}
         let remainingShlokas = mahaMantras;
         let remainingParticipants = shlokaAllocation.length;
         let shlokasPerPerson = Math.min(5, Math.floor(remainingShlokas / remainingParticipants));
