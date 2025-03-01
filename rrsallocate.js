@@ -60,9 +60,13 @@ function allocateShlokas(names) {
          console.log('\n selectedNames:\n', selectedNames, 'selectedNames.length:', selectedNames.length,'\n');
         // Ensure at least 3 names are available for Nyasam, Dhyanam, and Shlokam allocation
         while (selectedNames.length < 3) {
+			if(names.length >= 15){
             let extraNames = remainingNames.sort(() => 0.5 - Math.random()).slice(0, 3 - selectedNames.length);
             selectedNames.push(...extraNames);
-        }
+			}
+			else { shlokaAllocation.push(names.sort(() => 0.5 - Math.random()).slice(0, mahaMantras - shlokaAllocation.length);
+		      }
+		  }
 
         outputText += `Nyasa: ------------------${selectedNames[0]}\n`;
         outputText += `Dhyaanam: 1--------------${selectedNames[1]}\n\n`;
@@ -82,8 +86,13 @@ while (shlokaAllocation.length < mahaMantras) {
         shlokaAllocation.push(unusedNames.shift());
     } else {
         // If all names are used, start picking again (excluding the first 10 names)
+		if(names.lengh >= 15){
         let extraNames = remainingNames.sort(() => 0.5 - Math.random()).slice(0, mahaMantras - shlokaAllocation.length);
         shlokaAllocation.push(...extraNames);
+		console.log('extra names:',extranames, '\n');
+		}
+		else { shlokaAllocation.push(names.sort(() => 0.5 - Math.random()).slice(0, mahaMantras - shlokaAllocation.length);
+		}
     }
 }
         let remainingShlokas = mahaMantras;
