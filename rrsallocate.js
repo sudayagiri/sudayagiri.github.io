@@ -49,8 +49,8 @@ function allocateShlokas(names) {
 	
 	   // Select a random starting prayer person from available names
     let startingPrayerPerson = names[Math.floor(Math.random() * names.length)];
-    outputText += `\nEnding Prayer: ${startingPrayerPerson}\n`;
-    csvContent += `\nEnding Prayer,,,${startingPrayerPerson}\n`;
+    outputText += `\Starting Prayer: ${startingPrayerPerson}\n`;
+    csvContent += `\Starting Prayer,,,${startingPrayerPerson}\n`;
 
     console.log(outputText);
 
