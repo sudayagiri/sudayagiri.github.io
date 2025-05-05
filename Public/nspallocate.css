@@ -86,7 +86,7 @@ nav {
   width: 100%;
   max-width: 600px;
   margin: 20px auto;
-  padding-top: 56.25%; /* 16:9 ratio */
+  padding-top:43.75%; /* 16:9 ratio */
   overflow: hidden;
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
